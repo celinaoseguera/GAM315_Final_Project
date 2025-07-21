@@ -18,6 +18,8 @@ public class InputPublisher : MonoBehaviour
         public string keyPressed;
     }
 
+    public event EventHandler OnSpacePressed;
+
     // Update is called once per frame
     void Update()
     {
@@ -51,6 +53,11 @@ public class InputPublisher : MonoBehaviour
             {
                 keyPressed = "S"
             });
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            OnSpacePressed?.Invoke(this, EventArgs.Empty);
         }
 
     }
