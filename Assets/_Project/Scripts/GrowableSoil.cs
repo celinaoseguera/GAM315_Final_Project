@@ -6,17 +6,29 @@ using static InputPublisher;
 
 public class GrowableSoil : MonoBehaviour
 {
+    // ground content
     [SerializeField] InputPublisher inputPublisher;
     private const string PLAYER_TAG = "Player";
+    private Vector2 plotPos;
     private SpriteRenderer spriteRenderer;
 
-    public event EventHandler OnCropPlanted;
+    public event EventHandler<OnCropPlantedArgs> OnCropPlanted;
+    public class OnCropPlantedArgs : EventArgs
+    {
+        public Vector2 soilPlotPos;
+    }
+
     public event EventHandler OnCropWatered;
     //public event EventHandler OnCropHarvested;
+
+    // crop content
+    public GameObject cropToSpawn;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        plotPos = this.transform.position;
+        OnCropPlanted += cropToSeed;
     }
 
 
@@ -46,8 +58,11 @@ public class GrowableSoil : MonoBehaviour
 
     void PlantCrops(object sender, EventArgs e)
     {
-        OnCropPlanted?.Invoke(this, EventArgs.Empty);
-        // will show the seed sprite
+        OnCropPlanted?.Invoke(this, new OnCropPlantedArgs
+        {
+            soilPlotPos = plotPos
+        });
+        // will show the seed sprite at location of trhe soil plot
     }
 
     void WaterCrops(object sender, EventArgs e)
@@ -59,5 +74,13 @@ public class GrowableSoil : MonoBehaviour
     }
 
     //void HarvestCrops()
+
+    private void cropToSeed(object sender, GrowableSoil.OnCropPlantedArgs e)
+    {
+        Instantiate(cropToSpawn, e.soilPlotPos, Quaternion.identity);
+
+    }
+
+    
 
 }

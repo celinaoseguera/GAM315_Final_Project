@@ -6,9 +6,10 @@ using static GrowableSoil;
 
 public class CropGrowth : MonoBehaviour
 {
+    public GameObject cropToSpawn;
     [SerializeField] GrowableSoil cropPublisher;
-    [SerializeField] Sprite[] cropSprites;
-    [SerializeField] Sprite newSprite;
+    //[SerializeField] Sprite[] cropSprites;
+    //[SerializeField] Sprite newSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +19,9 @@ public class CropGrowth : MonoBehaviour
 
     }
 
-    private void cropToSeed(object sender, EventArgs e)
+    private void cropToSeed(object sender, GrowableSoil.OnCropPlantedArgs e)
     {
-        newSprite = cropSprites[0];
+        Instantiate(cropToSpawn,e.soilPlotPos, Quaternion.identity);
 
     }
 
