@@ -59,14 +59,9 @@ public class SpriteChanger : MonoBehaviour
 
     private void CropToGrow(object sender, GrowableSoil.OnCropWateredArgs e)
     {
-        if (cropWatered == false)
-        {
             cropWatered = true;
             // being called twice for some reason
             Debug.Log("crop watered");
-        }
-        
-
     }
 
     void CropToBeHarvested(object sender, EventArgs e)
