@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static InputPublisher;
+using static SpriteChanger;
 
 public class GrowableSoil : MonoBehaviour
 {
     // ground content
     [SerializeField] InputPublisher inputPublisher;
+    private SpriteChanger scriptToAccess;
+    [SerializeField] GameObject cropToAccessVars;
     private const string PLAYER_TAG = "Player";
     private Vector2 plotPos;
     private SpriteRenderer spriteRenderer;
@@ -26,7 +30,8 @@ public class GrowableSoil : MonoBehaviour
     {
         public Vector2 soilPlotPos;
     }
-    //public event EventHandler OnCropHarvested;
+    
+    public event EventHandler OnCropHarvested;
 
 
 
@@ -34,6 +39,8 @@ public class GrowableSoil : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         plotPos = this.transform.position;
+        //gets the crop's SpriteChanger script and its vars
+        scriptToAccess = cropToAccessVars.GetComponent<SpriteChanger>();
     }
 
 
@@ -44,6 +51,7 @@ public class GrowableSoil : MonoBehaviour
         {
             inputPublisher.OnEPressed += PlantCrops;
             inputPublisher.OnSpacePressed += WaterCrops;
+            inputPublisher.OnEPressed += HarvestCrops;
         }
 
         return;
@@ -54,7 +62,8 @@ public class GrowableSoil : MonoBehaviour
         if (other.gameObject.CompareTag(PLAYER_TAG))
         {
             inputPublisher.OnEPressed -= PlantCrops;
-            inputPublisher.OnSpacePressed -= WaterCrops;;
+            inputPublisher.OnSpacePressed -= WaterCrops;
+            inputPublisher.OnEPressed -= HarvestCrops;
         }
 
         return;
@@ -87,6 +96,16 @@ public class GrowableSoil : MonoBehaviour
 
     }
 
+    void HarvestCrops(object sender, EventArgs e)
+    {
+        if (scriptToAccess.cropReadyForHarvest == true)
+        {
+            OnCropHarvested?.Invoke(this, EventArgs.Empty);
+            plotOcupado = false;
+        }
+
+    }
+
     void Update()
     {
         if (plotHumedo == true)
@@ -104,6 +123,6 @@ public class GrowableSoil : MonoBehaviour
         }
     }
 
-    //void HarvestCrops()
+    
 
 }

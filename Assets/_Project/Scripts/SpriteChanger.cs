@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,14 @@ public class SpriteChanger : MonoBehaviour
     private float timer;
     private bool cropWatered = false;
     private bool cropPlanted = false;
+    public bool cropReadyForHarvest = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = null;
-        growableSoil.OnCropPlanted += cropToSeed;
-        growableSoil.OnCropWatered += cropToGrow;
+        growableSoil.OnCropPlanted += CropToSeed;
+        growableSoil.OnCropWatered += CropToGrow;
+        growableSoil.OnCropHarvested += CropToBeHarvested;
     }
 
     // Update is called once per frame
@@ -28,7 +31,6 @@ public class SpriteChanger : MonoBehaviour
 
             if (timer > 5 && timer < 9 )
             {
-                Debug.Log("should be plant now");
                 newSprite = cropSprites[1];
                 gameObject.GetComponent<SpriteRenderer>().sprite = newSprite;
             }
@@ -38,30 +40,42 @@ public class SpriteChanger : MonoBehaviour
                 newSprite = cropSprites[2];
                 gameObject.GetComponent<SpriteRenderer>().sprite = newSprite;
                 cropWatered = false;
+                cropReadyForHarvest = true;
                 timer = 0;
             }
         }
         
     }
 
-    private void cropToSeed(object sender, GrowableSoil.OnCropPlantedArgs e)
+    private void CropToSeed(object sender, GrowableSoil.OnCropPlantedArgs e)
     {
         cropPlanted = true;
+        Debug.Log("crop planted");
         newSprite = cropSprites[0];
         gameObject.GetComponent<SpriteRenderer>().sprite = newSprite;
         Instantiate(this, e.soilPlotPos, Quaternion.identity);
 
     }
 
-    private void cropToGrow(object sender, GrowableSoil.OnCropWateredArgs e)
+    private void CropToGrow(object sender, GrowableSoil.OnCropWateredArgs e)
     {
         if (cropWatered == false)
         {
-
-            Debug.Log("crop watered in soiulchanger");
             cropWatered = true;
+            // being called twice for some reason
+            Debug.Log("crop watered");
         }
         
+
+    }
+
+    void CropToBeHarvested(object sender, EventArgs e)
+    {
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = null;
+            // being called twice for some reason
+            Debug.Log("crop harvested!");
+        }
 
     }
 }

@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] InputPublisher inputPublisher;
-    float movementSpeed = 60.0f;
+    float movementSpeed = 30.0f;
     // assigning keyPressed arg to an var
     InputPublisher.OnWASDPressedEventArgs e;
     private Rigidbody2D rigidBody;
