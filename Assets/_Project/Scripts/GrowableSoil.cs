@@ -15,8 +15,6 @@ public class GrowableSoil : MonoBehaviour
     private const string PLAYER_TAG = "Player";
     private Vector2 plotPos;
     private SpriteRenderer spriteRenderer;
-    private bool plotOcupado = false;
-    private bool plotHumedo = false;
     private float timer;
 
     public event EventHandler<OnCropPlantedArgs> OnCropPlanted;
@@ -35,7 +33,7 @@ public class GrowableSoil : MonoBehaviour
 
 
 
-    void Awake()
+    void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         plotPos = this.transform.position;
@@ -71,57 +69,48 @@ public class GrowableSoil : MonoBehaviour
 
     void PlantCrops(object sender, EventArgs e)
     {
-        if (plotOcupado == false) {
-        OnCropPlanted?.Invoke(this, new OnCropPlantedArgs
+        if (scriptToAccess.cropPlanted == false) {
+            OnCropPlanted?.Invoke(this, new OnCropPlantedArgs
         {
             soilPlotPos = plotPos
         });
 
-        plotOcupado = true;
     }
         // will show the seed sprite at location of trhe soil plot
     }
 
     void WaterCrops(object sender, EventArgs e)
     {
-        if (plotHumedo == false) {
+        if (scriptToAccess.cropWatered == false)
+        {
             OnCropWatered?.Invoke(this, new OnCropWateredArgs
             {
                 soilPlotPos = plotPos
             });
             // will set off time delta time clock to change sprite from seed to plant and then to mature
             spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, .3f);
-            plotHumedo = true;
         }
 
     }
 
     void HarvestCrops(object sender, EventArgs e)
     {
-        if (scriptToAccess.cropReadyForHarvest == true)
+        if (scriptToAccess.cropReadyForHarvest == true && scriptToAccess.cropPlanted == true)
         {
             OnCropHarvested?.Invoke(this, EventArgs.Empty);
-            plotOcupado = false;
         }
 
     }
 
     void Update()
     {
-        if (plotHumedo == true)
-        {
-
-            timer += Time.deltaTime;
-
-            if (timer > 10)
-            {
-                spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, 0f);
-                timer = 0;
-                plotHumedo = false;
-            }
+        if (scriptToAccess.cropWatered == false && scriptToAccess.cropReadyForHarvest == true)
+        { 
+        spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, 0f);
+        }
 
         }
-    }
+    
 
     
 

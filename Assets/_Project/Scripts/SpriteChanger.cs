@@ -10,17 +10,20 @@ public class SpriteChanger : MonoBehaviour
     [SerializeField] GrowableSoil growableSoil;
     public Sprite newSprite;
     private float timer;
-    private bool cropWatered = false;
-    private bool cropPlanted = false;
-    public bool cropReadyForHarvest = false;
+    public bool cropWatered;
+    public bool cropPlanted;
+    public bool cropReadyForHarvest;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = null;
-        growableSoil.OnCropPlanted += CropToSeed;
+        growableSoil.OnCropPlanted += CropToSeed;       
         growableSoil.OnCropWatered += CropToGrow;
         growableSoil.OnCropHarvested += CropToBeHarvested;
-    }
+        cropPlanted = false;
+        cropReadyForHarvest = false;
+
+}
 
     // Update is called once per frame
     void Update()
@@ -53,7 +56,6 @@ public class SpriteChanger : MonoBehaviour
         Debug.Log("crop planted");
         newSprite = cropSprites[0];
         gameObject.GetComponent<SpriteRenderer>().sprite = newSprite;
-        Instantiate(this, e.soilPlotPos, Quaternion.identity);
 
     }
 
@@ -70,6 +72,8 @@ public class SpriteChanger : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().sprite = null;
             // being called twice for some reason
             Debug.Log("crop harvested!");
+            cropPlanted = false;
+            cropReadyForHarvest = false;
         }
 
     }

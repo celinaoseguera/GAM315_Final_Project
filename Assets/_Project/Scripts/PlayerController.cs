@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         inputPublisher.OnWASDPressed += Direction;
         rigidBody = this.GetComponent<Rigidbody2D>();
         
+
     }
 
 
