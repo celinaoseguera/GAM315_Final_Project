@@ -10,8 +10,6 @@ public class GrowableSoil : MonoBehaviour
 {
     // ground content
     [SerializeField] InputPublisher inputPublisher;
-    private SpriteChanger scriptToAccess;
-    [SerializeField] GameObject cropToAccessVars;
     private const string PLAYER_TAG = "Player";
     private Vector2 plotPos;
     private SpriteRenderer spriteRenderer;
@@ -31,14 +29,25 @@ public class GrowableSoil : MonoBehaviour
     
     public event EventHandler OnCropHarvested;
 
-
+    // crop content
+    [SerializeField] GameObject cropToSpawn;
+    [SerializeField] SpriteChanger spriteChanger;
+    private GameObject spawnedCrop;
+    private bool cropPlanted;
+    private bool cropWatered;
+    private bool cropReadyForHarvest;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         plotPos = this.transform.position;
         //gets the crop's SpriteChanger script and its vars
-        scriptToAccess = cropToAccessVars.GetComponent<SpriteChanger>();
+        //scriptToAccess = cropToSpawn.GetComponent<SpriteChanger>();
+        OnCropPlanted += CropToSeed;
+        OnCropWatered += CropToGrow;
+        OnCropHarvested += CropToBeHarvested;
+        cropPlanted = false;
+        cropReadyForHarvest = false;
     }
 
 
@@ -69,7 +78,7 @@ public class GrowableSoil : MonoBehaviour
 
     void PlantCrops(object sender, EventArgs e)
     {
-        if (scriptToAccess.cropPlanted == false) {
+        if (cropPlanted == false) {
             OnCropPlanted?.Invoke(this, new OnCropPlantedArgs
         {
             soilPlotPos = plotPos
@@ -81,7 +90,7 @@ public class GrowableSoil : MonoBehaviour
 
     void WaterCrops(object sender, EventArgs e)
     {
-        if (scriptToAccess.cropWatered == false)
+        if (cropWatered == false)
         {
             OnCropWatered?.Invoke(this, new OnCropWateredArgs
             {
@@ -95,21 +104,62 @@ public class GrowableSoil : MonoBehaviour
 
     void HarvestCrops(object sender, EventArgs e)
     {
-        if (scriptToAccess.cropReadyForHarvest == true && scriptToAccess.cropPlanted == true)
+        if (cropReadyForHarvest == true && cropPlanted == true)
         {
             OnCropHarvested?.Invoke(this, EventArgs.Empty);
         }
 
     }
 
-    void Update()
+    private void CropToSeed(object sender, GrowableSoil.OnCropPlantedArgs e)
     {
-        if (scriptToAccess.cropWatered == false && scriptToAccess.cropReadyForHarvest == true)
-        { 
-        spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, 0f);
+        cropPlanted = true;
+        Debug.Log("crop planted");
+        cropToSpawn.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[0];
+        spawnedCrop = Instantiate(cropToSpawn, e.soilPlotPos, Quaternion.identity);
+
+    }
+
+    private void CropToGrow(object sender, GrowableSoil.OnCropWateredArgs e)
+    {
+        cropWatered = true;
+        Debug.Log("crop watered");
+    }
+
+    void CropToBeHarvested(object sender, EventArgs e)
+    {
+        {
+            Destroy(spawnedCrop);
+            Debug.Log("crop harvested!");
+            cropPlanted = false;
+            cropReadyForHarvest = false;
         }
 
+    }
+
+    void Update()
+    {
+
+        if (cropWatered == true && cropPlanted == true)
+        {
+            timer += Time.deltaTime;
+
+            if (timer > 5 && timer < 9)
+            {
+                spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[1];
+            }
+
+            if (timer > 10)
+            {
+                spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[2];
+                cropWatered = false;
+                cropReadyForHarvest = true;
+                spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, 0f);
+                timer = 0;
+            }
         }
+
+    }
     
 
     
