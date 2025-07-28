@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static InputPublisher;
 using static SpriteChanger;
+using TMPro;
 
 public class GrowableSoil : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class GrowableSoil : MonoBehaviour
     
     public event EventHandler OnCropHarvested;
 
+
     // crop content
     [SerializeField] GameObject cropToSpawn;
     [SerializeField] SpriteChanger spriteChanger;
@@ -36,6 +38,7 @@ public class GrowableSoil : MonoBehaviour
     private bool cropPlanted;
     private bool cropWatered;
     private bool cropReadyForHarvest;
+    public bool cropHarvested;
 
     void Start()
     {
@@ -48,6 +51,7 @@ public class GrowableSoil : MonoBehaviour
         OnCropHarvested += CropToBeHarvested;
         cropPlanted = false;
         cropReadyForHarvest = false;
+        cropHarvested = false;
     }
 
 
@@ -126,13 +130,17 @@ public class GrowableSoil : MonoBehaviour
         Debug.Log("crop watered");
     }
 
-    void CropToBeHarvested(object sender, EventArgs e)
+    public void CropToBeHarvested(object sender, EventArgs e)
     {
         {
             Destroy(spawnedCrop);
             Debug.Log("crop harvested!");
+            cropHarvested = true;
             cropPlanted = false;
             cropReadyForHarvest = false;
+
+
+            
         }
 
     }

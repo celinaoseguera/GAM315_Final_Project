@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3778433787820826440}
   - component: {fileID: -7567096884421763254}
   m_Layer: 0
-  m_Name: Corn_seeds
-  m_TagString: Untagged
+  m_Name: Wheat_seeds
+  m_TagString: Wheat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5137110a02d2bf943a03a4dcb2a12c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growableSoil: {fileID: 0}
   cropSprites:
   - {fileID: 1361626062, guid: f9c9b9c169dea83449fa83afa8af7f3a, type: 3}
   - {fileID: 813620252, guid: f9c9b9c169dea83449fa83afa8af7f3a, type: 3}
