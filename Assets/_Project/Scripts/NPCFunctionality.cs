@@ -12,11 +12,8 @@ public class NPCFunctionality : MonoBehaviour
     [SerializeField] SpriteRenderer failed;
     [SerializeField] SpriteRenderer completed;
     private float timer;
-    private float delayedTimer;
-    private float start;
     private bool requestRaised;
     private bool requestCompleted;
-    private bool requestFailed;
     private int failedNum;
     private const string PLAYER_TAG = "Player";
 
@@ -25,11 +22,8 @@ public class NPCFunctionality : MonoBehaviour
     {
         requestRaised = false;
         requestCompleted = false;
-        requestFailed = false;
         failedNum = 0;
         timer = 0;
-        delayedTimer = 0;
-        start = 0;
         request.color = new Color(0f, 0f, 1f, 0f); 
         failed.color = new Color(0f, 0f, 1f, 0f);
         completed.color = new Color(0f, 0f, 1f, 0f);
@@ -55,27 +49,33 @@ public class NPCFunctionality : MonoBehaviour
 
         return;
     }
-    // CELINA FIX SO E PRESS IS BEING PROCESSED
+
     private void GiveCrop(object sender, EventArgs e)
     {
-        // will put qualifier for if player has in inventory later...
-        Debug.Log("request completed!");
-        completed.color = new Color(0f, 1f, 0f, 1f);
-        failed.color = new Color(0f, 0f, 1f, 0f);
-        requestCompleted = true;
-        StartCoroutine(DelayRequestFade(1f));
-        StartCoroutine(DelayRequestCompletedFade(1f));
+        if (requestRaised == true)
+        {
+            // will put qualifier for if player has in inventory later...
+            completed.color = new Color(0f, 1f, 0f, 1f);
+            failed.color = new Color(0f, 0f, 1f, 0f);
+            StartCoroutine(DelayRequestFade(1f));
+            StartCoroutine(DelayRequestCompletedFade(1f));
+            requestCompleted = true;
+            Debug.Log("Completed");
+            requestRaised = false;
+            timer = 0;
+        }
 
     }
 
     void FailedRequest()
 
     {
+        Debug.Log("Failed");
         failedNum++;
-        Debug.Log("request failed!");
         failed.color = new Color(1f, 0f, 0f, 1f);
         StartCoroutine(DelayRequestFailedFade(1f));
         StartCoroutine(DelayRequestFade(1f));
+        requestRaised = false;
     }
 
     void RaiseRequest()
@@ -114,14 +114,9 @@ public class NPCFunctionality : MonoBehaviour
             RaiseRequest();
         }
 
-        if (timer > 10 && timer < 11 && requestCompleted == false)
+        if (timer > 10 && timer < 11 && requestCompleted == false && requestRaised == true)
         {
             FailedRequest();
-            timer = 0;
-        }
-
-        if (requestCompleted == true)
-        {
             timer = 0;
         }
 
