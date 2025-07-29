@@ -6,9 +6,9 @@ using UnityEngine;
 public class UIRequests : MonoBehaviour
 {
 
-    [SerializeField] SpriteRenderer request;
-    [SerializeField] SpriteRenderer failed;
-    [SerializeField] SpriteRenderer completed;
+    [SerializeField] Sprite request;
+    [SerializeField] Sprite failed;
+    [SerializeField] Sprite completed;
     // Start is called before the first frame update
     void Start()
     {
