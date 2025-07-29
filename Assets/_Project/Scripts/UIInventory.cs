@@ -11,6 +11,7 @@ public class UIInventory : MonoBehaviour
 {
 
     [SerializeField] TMP_Text AmountToChange;
+    [SerializeField] NPCFunctionality[] npcFunctionalities;
     [SerializeField] GrowableSoil[] growableSoils;
     private int currentAmount;
 
@@ -20,14 +21,27 @@ public class UIInventory : MonoBehaviour
         public TMP_Text text;
     }
 
+    public event EventHandler<OnCropLostTextArgs> OnCropLostText;
+    public class OnCropLostTextArgs : EventArgs
+    {
+        public TMP_Text text;
+    }
+
     void Start()
     {
-        currentAmount += 0;
+        currentAmount = 0;
         foreach (GrowableSoil script in growableSoils)
         {
             script.OnCropHarvested += HarvestListener;
         }
-        OnCropHarvestedText += ChangeText;
+
+        foreach (NPCFunctionality script in npcFunctionalities)
+        {
+            script.OnCropGiven += RequestListener;
+        }
+
+        OnCropHarvestedText += ChangeTextIncrease;
+        OnCropLostText += ChangeTextDecrease;
     }
 
 
@@ -37,14 +51,27 @@ public class UIInventory : MonoBehaviour
         {
             text = AmountToChange
         });
-
-
     }
 
-    void ChangeText(object sender, OnCropHarvestedTextArgs e)
+    void RequestListener(object sender, EventArgs e)
+    {
+        OnCropLostText?.Invoke(this, new OnCropLostTextArgs 
+        {
+            text = AmountToChange
+        });
+    }
+
+    void ChangeTextIncrease(object sender, OnCropHarvestedTextArgs e)
     {
         currentAmount++;
-        Debug.Log("text should have changed");
+        Debug.Log("text should have increased");
+        e.text.text = currentAmount.ToString();
+    }
+
+    void ChangeTextDecrease(object sender, OnCropLostTextArgs e)
+    {
+        currentAmount--;
+        Debug.Log("text should have decreased");
         e.text.text = currentAmount.ToString();
     }
 }

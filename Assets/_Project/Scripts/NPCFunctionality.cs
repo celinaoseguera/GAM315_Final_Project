@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static InputPublisher;
+using static PlayerInventory;
 
 
 public class NPCFunctionality : MonoBehaviour
@@ -11,11 +12,14 @@ public class NPCFunctionality : MonoBehaviour
     [SerializeField] SpriteRenderer request;
     [SerializeField] SpriteRenderer failed;
     [SerializeField] SpriteRenderer completed;
+    [SerializeField] PlayerInventory playerInventory;
     private float timer;
     private bool requestRaised;
     private bool requestCompleted;
     private int failedNum;
     private const string PLAYER_TAG = "Player";
+
+    public event EventHandler OnCropGiven;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +56,7 @@ public class NPCFunctionality : MonoBehaviour
 
     private void GiveCrop(object sender, EventArgs e)
     {
-        if (requestRaised == true)
+        if (requestRaised == true && playerInventory.wheatAmount >= 1)
         {
             // will put qualifier for if player has in inventory later...
             completed.color = new Color(0f, 1f, 0f, 1f);
@@ -63,6 +67,7 @@ public class NPCFunctionality : MonoBehaviour
             Debug.Log("Completed");
             requestRaised = false;
             timer = 0;
+            OnCropGiven?.Invoke(this, EventArgs.Empty);
         }
 
     }
@@ -81,6 +86,7 @@ public class NPCFunctionality : MonoBehaviour
     void RaiseRequest()
     {
         request.color = new Color(0f, 0f, 1f, 1f);
+        requestCompleted = false;
         requestRaised = true;
 
     }
@@ -106,16 +112,18 @@ public class NPCFunctionality : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // ADD IN COROUTINE THAT IS JUST AN EMPTY FUNCTION THAT STALL FOR RANDON 1-5 TIME TO ALLOW FOR 
+        // VARIANCE IN REQUEST START AMONGST THREE NPCS AT THE START
         timer += Time.deltaTime;
 
-        if (timer > 3 && timer < 4)
+        if (timer > 10 && timer < 11)
         {
             RaiseRequest();
         }
 
-        if (timer > 10 && timer < 11 && requestCompleted == false && requestRaised == true)
+        if (timer > 20 && timer < 21 && requestCompleted == false && requestRaised == true)
         {
+    
             FailedRequest();
             timer = 0;
         }
