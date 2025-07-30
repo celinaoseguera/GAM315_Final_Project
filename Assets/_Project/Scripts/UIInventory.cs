@@ -10,7 +10,8 @@ using static GrowableSoil;
 public class UIInventory : MonoBehaviour
 {
 
-    [SerializeField] TMP_Text AmountToChange;
+    [SerializeField] TMP_Text WheatToChange;
+    [SerializeField] TMP_Text MoneyToChange;
     [SerializeField] NPCFunctionality[] npcFunctionalities;
     [SerializeField] GrowableSoil[] growableSoils;
     private int currentAmount;
@@ -40,8 +41,9 @@ public class UIInventory : MonoBehaviour
             script.OnCropGiven += RequestListener;
         }
 
-        OnCropHarvestedText += ChangeTextIncrease;
-        OnCropLostText += ChangeTextDecrease;
+        OnCropHarvestedText += WheatChangeTextIncrease;
+        OnCropLostText += WheatChangeTextDecrease;
+        OnCropLostText += MoneyChangeTextIncrease;
     }
 
 
@@ -49,7 +51,7 @@ public class UIInventory : MonoBehaviour
     {
         OnCropHarvestedText?.Invoke(this, new OnCropHarvestedTextArgs
         {
-            text = AmountToChange
+            text = WheatToChange
         });
     }
 
@@ -57,21 +59,31 @@ public class UIInventory : MonoBehaviour
     {
         OnCropLostText?.Invoke(this, new OnCropLostTextArgs 
         {
-            text = AmountToChange
+            text = WheatToChange
         });
+
+        OnCropLostText?.Invoke(this, new OnCropLostTextArgs
+        {
+            text = MoneyToChange
+        });
+
     }
 
-    void ChangeTextIncrease(object sender, OnCropHarvestedTextArgs e)
+    void WheatChangeTextIncrease(object sender, OnCropHarvestedTextArgs e)
     {
         currentAmount++;
-        Debug.Log("text should have increased");
         e.text.text = currentAmount.ToString();
     }
 
-    void ChangeTextDecrease(object sender, OnCropLostTextArgs e)
+    void WheatChangeTextDecrease(object sender, OnCropLostTextArgs e)
     {
         currentAmount--;
-        Debug.Log("text should have decreased");
+        e.text.text = currentAmount.ToString();
+    }
+
+    void MoneyChangeTextIncrease(object sender, OnCropLostTextArgs e)
+    {
+        currentAmount++;
         e.text.text = currentAmount.ToString();
     }
 }

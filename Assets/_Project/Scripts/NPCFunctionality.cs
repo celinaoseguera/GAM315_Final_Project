@@ -8,24 +8,44 @@ using static PlayerInventory;
 
 public class NPCFunctionality : MonoBehaviour
 {
+    //NPC
     [SerializeField] InputPublisher inputPublisher;
-    [SerializeField] GameObject requestStateToSpawn;
-    [SerializeField] PlayerInventory playerInventory;
     private float timer;
     private bool requestRaised;
     private bool requestCompleted;
     private int failedNum;
-    private const string PLAYER_TAG = "Player";
+    private Vector2 npcPos;
+    private Vector2 npcPosOffsetY;
+    private Vector2 npcPosOffsetXY;
 
     public event EventHandler OnCropGiven;
+
+    //State
+    [SerializeField] GameObject requestToSpawn;
+    [SerializeField] GameObject failureToSpawn;
+    [SerializeField] GameObject completeToSpawn;
+    private GameObject requestSpawned;
+    private GameObject failureSpawned;
+    private GameObject completeSpawned;
+    private int spawnCountFlag;
+    private float randomDelay;
+
+    //Player
+    [SerializeField] PlayerInventory playerInventory;
+    private const string PLAYER_TAG = "Player";
 
     // Start is called before the first frame update
     void Start()
     {
+        npcPos = this.transform.position;
+        npcPosOffsetY = new Vector2 (npcPos.x, npcPos.y + 1.3f);
+        npcPosOffsetXY = new Vector2(npcPos.x + .9f, npcPos.y + 1.3f);
         requestRaised = false;
         requestCompleted = false;
+        spawnCountFlag = 0;
         failedNum = 0;
         timer = 0;
+        randomDelay = 0;
 
     }
 
@@ -53,15 +73,14 @@ public class NPCFunctionality : MonoBehaviour
     {
         if (requestRaised == true && playerInventory.wheatAmount >= 1)
         {
-            // will put qualifier for if player has in inventory later...
-            //completed.color = new Color(0f, 1f, 0f, 1f);
-            //failed.color = new Color(0f, 0f, 1f, 0f);
-            StartCoroutine(DelayRequestFade(1f));
-            StartCoroutine(DelayRequestCompletedFade(1f));
+            completeSpawned = Instantiate(completeToSpawn, npcPosOffsetXY, Quaternion.identity);
+            StartCoroutine(DelayRequestFade(2f));
+            StartCoroutine(DelayRequestCompletedFade(2f));
             requestCompleted = true;
             Debug.Log("Completed");
             requestRaised = false;
             timer = 0;
+            spawnCountFlag = 0;
             OnCropGiven?.Invoke(this, EventArgs.Empty);
         }
 
@@ -72,15 +91,16 @@ public class NPCFunctionality : MonoBehaviour
     {
         Debug.Log("Failed");
         failedNum++;
-        //failed.color = new Color(1f, 0f, 0f, 1f);
-        StartCoroutine(DelayRequestFailedFade(1f));
-        StartCoroutine(DelayRequestFade(1f));
+        failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
+        StartCoroutine(DelayRequestFailedFade(2f));
+        StartCoroutine(DelayRequestFade(2f));
         requestRaised = false;
     }
 
     void RaiseRequest()
     {
-        //request.color = new Color(0f, 0f, 1f, 1f);
+        Debug.Log("Raised");
+        requestSpawned = Instantiate(requestToSpawn, npcPosOffsetY, Quaternion.identity);
         requestCompleted = false;
         requestRaised = true;
 
@@ -89,31 +109,44 @@ public class NPCFunctionality : MonoBehaviour
     private IEnumerator DelayRequestFade(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        //request.color = new Color(0f, 0f, 1f, 0f);
+        Destroy(requestSpawned);
     }
 
     private IEnumerator DelayRequestFailedFade(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        //failed.color = new Color(1f, 0f, 0f, 0f);
+        Destroy(failureSpawned);
     }
 
     private IEnumerator DelayRequestCompletedFade(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        //completed.color = new Color(0f, 1f, 0f, 0f);
+        Destroy(completeSpawned);
+    }
+
+    private IEnumerator DelayForRandTime(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        spawnCountFlag++;
+        if (spawnCountFlag < 2)
+        {
+            Debug.Log(randomDelay);
+            RaiseRequest();
+
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ADD IN COROUTINE THAT IS JUST AN EMPTY FUNCTION THAT STALL FOR RANDON 1-5 TIME TO ALLOW FOR 
-        // VARIANCE IN REQUEST START AMONGST THREE NPCS AT THE START
+
         timer += Time.deltaTime;
 
         if (timer > 10 && timer < 11)
         {
-            RaiseRequest();
+            randomDelay = UnityEngine.Random.Range(3, 10);
+            StartCoroutine(DelayForRandTime(randomDelay));
+
         }
 
         if (timer > 20 && timer < 21 && requestCompleted == false && requestRaised == true)
@@ -121,11 +154,11 @@ public class NPCFunctionality : MonoBehaviour
     
             FailedRequest();
             timer = 0;
+            spawnCountFlag = 0;
         }
 
         if (failedNum == 3)
-            // record into gameover scropt that takers script array of all instasnces of npcs
-            // so when failedNum == 3, gameover happens
+
         {
             Debug.Log("GAME OVER");
             Time.timeScale = 0f;

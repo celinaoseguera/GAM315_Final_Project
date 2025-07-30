@@ -30,6 +30,7 @@ public class PlayerInventory : MonoBehaviour
 
         OnCropLost += subtractCrops;
         OnCropReceived += addCrops;
+        OnCropReceived += addMoney;
         wheatAmount = 0;
         moneyAmount = 0;
         
@@ -55,6 +56,12 @@ public class PlayerInventory : MonoBehaviour
     {
         wheatAmount--;
         Debug.Log(wheatAmount);
+    }
+
+    void addMoney (object sender, EventArgs e)
+    {
+        moneyAmount ++;
+        Debug.Log(moneyAmount);
     }
 
     // Update is called once per frame

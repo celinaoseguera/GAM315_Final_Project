@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1683117127
+  m_SortingLayerID: -526056545
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -100,6 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputPublisher: {fileID: 0}
   cropToSpawn: {fileID: 3045665811957515602, guid: 2ba8a514e8dd4814f9d430285a0ad20a, type: 3}
+  spriteChanger: {fileID: 0}
+  cropHarvested: 0
 --- !u!61 &5311870023693336304
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wheat
+  - Completed
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 458629853
+    locked: 0
+  - name: Plants
+    uniqueID: 3768910751
     locked: 0
   - name: Foreground
     uniqueID: 1683117127

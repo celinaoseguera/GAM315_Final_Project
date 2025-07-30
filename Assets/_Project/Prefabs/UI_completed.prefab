@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3045665811957515602
+--- !u!1 &8911680666914451090
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8472212850870701541}
-  - component: {fileID: 3778433787820826440}
-  - component: {fileID: -7567096884421763254}
-  m_Layer: 0
-  m_Name: Wheat_seeds
-  m_TagString: Wheat
+  - component: {fileID: 3091009046852445362}
+  - component: {fileID: 8478107526917422009}
+  m_Layer: 5
+  m_Name: UI_completed
+  m_TagString: Completed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8472212850870701541
+--- !u!4 &3091009046852445362
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3045665811957515602}
+  m_GameObject: {fileID: 8911680666914451090}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7745743, y: -2.4444056, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.28, y: 3.7555, z: 0}
+  m_LocalScale: {x: 0.3652651, y: 0.3652651, z: 0.3652651}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3778433787820826440
+--- !u!212 &8478107526917422009
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3045665811957515602}
+  m_GameObject: {fileID: 8911680666914451090}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -71,33 +70,17 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1683117127
-  m_SortingLayer: 4
+  m_SortingLayerID: -541512593
+  m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1361626062, guid: f9c9b9c169dea83449fa83afa8af7f3a, type: 3}
+  m_Sprite: {fileID: 1447430945, guid: cd938c968a81ad147b7387c33df537de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7567096884421763254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3045665811957515602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5137110a02d2bf943a03a4dcb2a12c1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cropSprites:
-  - {fileID: 1361626062, guid: f9c9b9c169dea83449fa83afa8af7f3a, type: 3}
-  - {fileID: 813620252, guid: f9c9b9c169dea83449fa83afa8af7f3a, type: 3}
-  - {fileID: 1981028137, guid: f9c9b9c169dea83449fa83afa8af7f3a, type: 3}
