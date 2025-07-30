@@ -12,9 +12,13 @@ public class UIInventory : MonoBehaviour
 
     [SerializeField] TMP_Text WheatToChange;
     [SerializeField] TMP_Text MoneyToChange;
+    [SerializeField] GameObject[] failureSprites;
     [SerializeField] NPCFunctionality[] npcFunctionalities;
     [SerializeField] GrowableSoil[] growableSoils;
+
     private int currentAmount;
+    private SpriteRenderer spriteRenderer;
+    private int failureCounter;
 
     public event EventHandler<OnCropHarvestedTextArgs> OnCropHarvestedText;
     public class OnCropHarvestedTextArgs : EventArgs
@@ -30,6 +34,7 @@ public class UIInventory : MonoBehaviour
 
     void Start()
     {
+        failureCounter = 0;
         currentAmount = 0;
         foreach (GrowableSoil script in growableSoils)
         {
@@ -39,6 +44,11 @@ public class UIInventory : MonoBehaviour
         foreach (NPCFunctionality script in npcFunctionalities)
         {
             script.OnCropGiven += RequestListener;
+        }
+
+        foreach (NPCFunctionality script in npcFunctionalities)
+        {
+            script.OnFailure += activateFailureSprites;
         }
 
         OnCropHarvestedText += WheatChangeTextIncrease;
@@ -85,5 +95,12 @@ public class UIInventory : MonoBehaviour
     {
         currentAmount++;
         e.text.text = currentAmount.ToString();
+    }
+
+    void activateFailureSprites(object sender, EventArgs e)
+    {
+       
+        failureSprites[failureCounter].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        failureCounter++;
     }
 }

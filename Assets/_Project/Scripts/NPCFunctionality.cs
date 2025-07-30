@@ -30,6 +30,8 @@ public class NPCFunctionality : MonoBehaviour
     private int spawnCountFlag;
     private float randomDelay;
 
+    public event EventHandler OnFailure;
+
     //Player
     [SerializeField] PlayerInventory playerInventory;
     private const string PLAYER_TAG = "Player";
@@ -45,7 +47,7 @@ public class NPCFunctionality : MonoBehaviour
         spawnCountFlag = 0;
         failedNum = 0;
         timer = 0;
-        randomDelay = 0;
+        randomDelay = 0f;
 
     }
 
@@ -77,7 +79,6 @@ public class NPCFunctionality : MonoBehaviour
             StartCoroutine(DelayRequestFade(2f));
             StartCoroutine(DelayRequestCompletedFade(2f));
             requestCompleted = true;
-            Debug.Log("Completed");
             requestRaised = false;
             timer = 0;
             spawnCountFlag = 0;
@@ -89,17 +90,16 @@ public class NPCFunctionality : MonoBehaviour
     void FailedRequest()
 
     {
-        Debug.Log("Failed");
         failedNum++;
         failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
         StartCoroutine(DelayRequestFailedFade(2f));
         StartCoroutine(DelayRequestFade(2f));
         requestRaised = false;
+        OnFailure?.Invoke(this, EventArgs.Empty);
     }
 
     void RaiseRequest()
     {
-        Debug.Log("Raised");
         requestSpawned = Instantiate(requestToSpawn, npcPosOffsetY, Quaternion.identity);
         requestCompleted = false;
         requestRaised = true;
@@ -124,13 +124,15 @@ public class NPCFunctionality : MonoBehaviour
         Destroy(completeSpawned);
     }
 
-    private IEnumerator DelayForRandTime(float waitTime)
+    private IEnumerator DelayForRandTime()
     {
-        yield return new WaitForSeconds(waitTime);
         spawnCountFlag++;
         if (spawnCountFlag < 2)
         {
-            Debug.Log(randomDelay);
+            randomDelay = UnityEngine.Random.Range(3f, 10f);
+            yield return new WaitForSeconds(randomDelay);
+            // to offset the failed request time to accomodate for the delay
+            timer -= randomDelay;
             RaiseRequest();
 
         }
@@ -144,8 +146,8 @@ public class NPCFunctionality : MonoBehaviour
 
         if (timer > 10 && timer < 11)
         {
-            randomDelay = UnityEngine.Random.Range(3, 10);
-            StartCoroutine(DelayForRandTime(randomDelay));
+            
+            StartCoroutine(DelayForRandTime());
 
         }
 
@@ -155,13 +157,6 @@ public class NPCFunctionality : MonoBehaviour
             FailedRequest();
             timer = 0;
             spawnCountFlag = 0;
-        }
-
-        if (failedNum == 3)
-
-        {
-            Debug.Log("GAME OVER");
-            Time.timeScale = 0f;
         }
             
         }
