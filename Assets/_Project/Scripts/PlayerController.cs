@@ -8,48 +8,70 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] InputPublisher inputPublisher;
-    float movementSpeed = 30.0f;
-    // assigning keyPressed arg to an var
-    InputPublisher.OnWASDPressedEventArgs e;
+    private float movementSpeed = 3.0f;
+    private bool isMoving;
     private Rigidbody2D rigidBody;
-    private Vector2 targetPos;
- 
+    private Vector2 input;
+    public LayerMask solidObjectsLayer;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        // subscribe eventHanlder to event at start
-        inputPublisher.OnWASDPressed += Direction;
-        rigidBody = this.GetComponent<Rigidbody2D>();
         
 
     }
 
-
-
-    // Eventhandler function
-
-    void Direction(object sender, InputPublisher.OnWASDPressedEventArgs e)
+    void Update()
     {
-
-
-        switch (e.keyPressed)
+        if (!isMoving)
         {
-            case "A":
-                rigidBody.MovePosition(rigidBody.position + (Vector2.left * movementSpeed * Time.deltaTime));
-                break;
-            case "D":
-                rigidBody.MovePosition(rigidBody.position + (Vector2.right * movementSpeed * Time.deltaTime));
-                break;
-            case "W":
-                rigidBody.MovePosition(rigidBody.position + (Vector2.up * movementSpeed * Time.deltaTime));
-                break;
-            case "S":
-                rigidBody.MovePosition(rigidBody.position + (Vector2.down * movementSpeed * Time.deltaTime));
-                break;
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
+
+            //avoiding diagonal movement and lag
+            if (input.x != 0) input.y = 0;
+
+            // if user it pressing left or right or up or down (-1,0 ... 1,0 ... 0,1 ... 1,0)
+            if (input != Vector2.zero)
+            {
+                var targetPos = transform.position;
+                targetPos.x += input.x;
+                targetPos.y += input.y;
+                // walakble area? Only move if that is the case
+                if (IsWalkable(targetPos))
+                {
+                    StartCoroutine(Move(targetPos));
+                }
+                
+            }
+        }
+    }
+
+    IEnumerator Move(Vector3 targetPos)
+    {
+        isMoving = true;
+        // if there was any movement (bigger than zero)... means the user moved and we need to proces that.
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon) {
+
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, movementSpeed * Time.deltaTime);
+            yield return null;
         }
 
+        transform.position = targetPos;
+
+        isMoving = false;
+    }
+
+    private bool IsWalkable(Vector3 targetPos)
+    {
+        // if there is overlap... meaning NOT null
+        if (Physics2D.OverlapCircle(targetPos, 0.3f, solidObjectsLayer) != null)
+        {
+            return false;
+        }
+
+        return true;
     }
 
 }

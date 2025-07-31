@@ -11,12 +11,7 @@ public class InputPublisher : MonoBehaviour
     // raise events (in update)
     // handle events over in whoever is subscribing to the event being raised (separate files)
 
-    public event EventHandler <OnWASDPressedEventArgs> OnWASDPressed; 
-
-    public class OnWASDPressedEventArgs: EventArgs
-    {
-        public string keyPressed;
-    }
+   
 
     public event EventHandler OnSpacePressed;
     public event EventHandler OnEPressed;
@@ -24,37 +19,6 @@ public class InputPublisher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            OnWASDPressed?.Invoke(this, new OnWASDPressedEventArgs
-            {
-                keyPressed = "A"
-            });
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            OnWASDPressed?.Invoke(this, new OnWASDPressedEventArgs
-            {
-                keyPressed = "D"
-            });
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            OnWASDPressed?.Invoke(this, new OnWASDPressedEventArgs
-            {
-                keyPressed = "W"
-            });
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            OnWASDPressed?.Invoke(this, new OnWASDPressedEventArgs
-            {
-                keyPressed = "S"
-            });
-        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -2,13 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using static NPCFunctionality;
 
 public class GameOver : MonoBehaviour
 {
 
     [SerializeField] NPCFunctionality[] npcFunctionalities;
+    [SerializeField] TMP_Text gameOverTitle;
+    [SerializeField] GameObject gameOverScreen;
     private int failureCount;
+
+
 
     void Start()
     {
@@ -16,6 +21,9 @@ public class GameOver : MonoBehaviour
         {
             script.OnFailure += addToFailureCount;
         }
+
+        gameOverTitle.text = "";
+        gameOverScreen.SetActive(false);
         
     }
 
@@ -29,7 +37,8 @@ public class GameOver : MonoBehaviour
     {
         if (failureCount == 5)
         {
-            Debug.Log("GAME OVER");
+            gameOverTitle.text = "GAME OVER";
+            gameOverScreen.SetActive(false);
             Time.timeScale = 0f;
         }
         
