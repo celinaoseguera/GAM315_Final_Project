@@ -2420,7 +2420,7 @@ GameObject:
   - component: {fileID: 535728541}
   - component: {fileID: 535728543}
   - component: {fileID: 535728542}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: GameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2785,7 +2785,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758212023}
   - component: {fileID: 758212024}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2808,7 +2808,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &758212024
@@ -4667,8 +4667,8 @@ MonoBehaviour:
   - {fileID: 1212391868}
   - {fileID: 1550812565}
   - {fileID: 1779909061}
-  gameOverTitle: {fileID: 0}
-  gameOverScreen: {fileID: 0}
+  gameOverTitle: {fileID: 535728542}
+  gameOverScreen: {fileID: 758212022}
 --- !u!1001 &1657220537
 PrefabInstance:
   m_ObjectHideFlags: 0

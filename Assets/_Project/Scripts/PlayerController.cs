@@ -2,12 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static InputPublisher;
 
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] InputPublisher inputPublisher;
     private float movementSpeed = 3.0f;
     private bool isMoving;
     private Rigidbody2D rigidBody;
