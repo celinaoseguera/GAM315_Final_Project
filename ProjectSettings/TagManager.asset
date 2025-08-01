@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wheat
   - Completed
+  - NPC requester
+  - NPC shopkeeper
   layers:
   - Default
   - TransparentFX

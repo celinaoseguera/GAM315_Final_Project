@@ -332,7 +332,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031efea63c55e9844a5e5a8aaae5cc38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputPublisher: {fileID: 795561038}
   solidObjectsLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -462,10 +461,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbedbc5557c9f64499604cf1fdd7085a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcFunctionalities:
-  - {fileID: 1212391868}
-  - {fileID: 1779909061}
+  npcRequesters:
+  - {fileID: 1110481759}
   - {fileID: 1550812565}
+  - {fileID: 1779909061}
+  - {fileID: 1212391868}
   growableSoils:
   - {fileID: 33759737}
   - {fileID: 1777647994}
@@ -474,7 +474,8 @@ MonoBehaviour:
   - {fileID: 2014474690}
   - {fileID: 1958507033}
   wheatAmount: 0
-  moneyAmount: 0
+  moneyAmount: 10
+  seedAmount: 0
 --- !u!1 &480071187
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,11 +3204,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1110481755}
   - component: {fileID: 1110481756}
-  - component: {fileID: 1110481758}
   - component: {fileID: 1110481757}
-  m_Layer: 6
+  - component: {fileID: 1110481759}
+  m_Layer: 5
   m_Name: generic-rpg-vendor
-  m_TagString: Untagged
+  m_TagString: NPC shopkeeper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3221,7 +3222,7 @@ Transform:
   m_GameObject: {fileID: 1110481754}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.4, y: 3.61, z: 0}
+  m_LocalPosition: {x: -2.77, y: 3.15, z: 0}
   m_LocalScale: {x: 0.6768, y: 0.6768, z: 0.6768}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3308,7 +3309,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -3324,33 +3325,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 3.1875}
   m_EdgeRadius: 0
---- !u!50 &1110481758
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &1110481759
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110481754}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c680f781cf0c42642b11b34f00fa5575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputPublisher: {fileID: 795561038}
+  requestToSpawn: {fileID: 0}
+  failureToSpawn: {fileID: 0}
+  completeToSpawn: {fileID: 0}
+  seedToSpawn: {fileID: 4912188212387768473, guid: 6ed80c5f1fa725843be13c730197f25c, type: 3}
+  playerInventory: {fileID: 446783867}
 --- !u!1 &1119859944
 GameObject:
   m_ObjectHideFlags: 0
@@ -3810,7 +3802,7 @@ GameObject:
   - component: {fileID: 1212391867}
   m_Layer: 5
   m_Name: sensei
-  m_TagString: Untagged
+  m_TagString: NPC requester
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3881,6 +3873,7 @@ MonoBehaviour:
   requestToSpawn: {fileID: 4436033067604057070, guid: c96191a7af65db840bd50e551d90ffd0, type: 3}
   failureToSpawn: {fileID: 7867612645597014443, guid: eb6a4a302b7fc6c48b42dac0d60f3a9a, type: 3}
   completeToSpawn: {fileID: 8911680666914451090, guid: 3ecf23d026e94be47a0226e8aeed6576, type: 3}
+  seedToSpawn: {fileID: 0}
   playerInventory: {fileID: 446783867}
 --- !u!212 &1212391869
 SpriteRenderer:
@@ -4459,7 +4452,7 @@ GameObject:
   - component: {fileID: 1550812566}
   m_Layer: 5
   m_Name: hat-guy
-  m_TagString: Untagged
+  m_TagString: NPC requester
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4547,6 +4540,7 @@ MonoBehaviour:
   requestToSpawn: {fileID: 4436033067604057070, guid: c96191a7af65db840bd50e551d90ffd0, type: 3}
   failureToSpawn: {fileID: 7867612645597014443, guid: eb6a4a302b7fc6c48b42dac0d60f3a9a, type: 3}
   completeToSpawn: {fileID: 8911680666914451090, guid: 3ecf23d026e94be47a0226e8aeed6576, type: 3}
+  seedToSpawn: {fileID: 0}
   playerInventory: {fileID: 446783867}
 --- !u!70 &1550812566
 CapsuleCollider2D:
@@ -4771,7 +4765,7 @@ GameObject:
   - component: {fileID: 1779909062}
   m_Layer: 5
   m_Name: gabe-idle-run_0
-  m_TagString: Untagged
+  m_TagString: NPC requester
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4859,6 +4853,7 @@ MonoBehaviour:
   requestToSpawn: {fileID: 4436033067604057070, guid: c96191a7af65db840bd50e551d90ffd0, type: 3}
   failureToSpawn: {fileID: 7867612645597014443, guid: eb6a4a302b7fc6c48b42dac0d60f3a9a, type: 3}
   completeToSpawn: {fileID: 8911680666914451090, guid: 3ecf23d026e94be47a0226e8aeed6576, type: 3}
+  seedToSpawn: {fileID: 0}
   playerInventory: {fileID: 446783867}
 --- !u!70 &1779909062
 CapsuleCollider2D:

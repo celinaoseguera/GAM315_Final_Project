@@ -6,13 +6,14 @@ using static NPCFunctionality;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField] NPCFunctionality[] npcFunctionalities;
+    [SerializeField] NPCFunctionality[] npcRequesters;
     [SerializeField] GrowableSoil[] growableSoils;
     public int wheatAmount;
     public int moneyAmount;
+    public int seedAmount;
 
     public event EventHandler OnCropReceived;
-    public event EventHandler OnCropLost;
+    public event EventHandler OnCropGiven;
 
 
 
@@ -24,16 +25,20 @@ public class PlayerInventory : MonoBehaviour
             script.OnCropHarvested += HarvestListener;
         }
 
-        foreach (NPCFunctionality script in npcFunctionalities)
+        foreach (NPCFunctionality script in npcRequesters)
         {
             script.OnCropGiven += RequestListener;
+            script.OnSeedsPurchased += addSeeds;
+            script.OnSeedsPurchased += subtractMoney;
         }
 
-        OnCropLost += subtractCrops;
+        OnCropGiven += subtractCrops;
         OnCropReceived += addCrops;
         OnCropReceived += addMoney;
         wheatAmount = 0;
-        moneyAmount = 0;
+        moneyAmount = 10;
+        seedAmount = 0;
+
         
     }
 
@@ -44,25 +49,41 @@ public class PlayerInventory : MonoBehaviour
 
     void RequestListener(object sender, EventArgs e)
     {
-        OnCropLost?.Invoke(this, EventArgs.Empty);
+        OnCropGiven?.Invoke(this, EventArgs.Empty);
     }
 
    void addCrops(object sender, EventArgs e)
     {
         wheatAmount++;
-        Debug.Log(wheatAmount);
     }
 
     void subtractCrops(object sender, EventArgs e)
     {
         wheatAmount--;
-        Debug.Log(wheatAmount);
+    }
+
+    void addSeeds(object sender, OnSeedsPurchasedArgs e)
+    {
+        seedAmount = e.seedAmountPurchased;
+        Debug.Log(seedAmount + " after purchasing seeds");
+    }
+
+    void subtractSeeds(object sender, EventArgs e)
+    {
+        seedAmount--;
+        Debug.Log(seedAmount + " after planting seeds");
+
     }
 
     void addMoney (object sender, EventArgs e)
     {
-        moneyAmount ++;
-        Debug.Log(moneyAmount);
+        moneyAmount++;
+    }
+
+    void subtractMoney (object sender, OnSeedsPurchasedArgs e)
+    {
+        moneyAmount -= e.moneyToDeduct;
+        Debug.Log(moneyAmount + " after purchasing seeds");
     }
 
     // Update is called once per frame
