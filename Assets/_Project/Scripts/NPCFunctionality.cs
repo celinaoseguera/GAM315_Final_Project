@@ -42,7 +42,6 @@ public class NPCFunctionality : MonoBehaviour
     private GameObject seedSpawned;
     private bool seedsRaised;
     private bool seedsPurchaseComplete;
-    private int seedToPlayerCount;
     
     public event EventHandler<OnSeedsPurchasedArgs> OnSeedsPurchased;
 
@@ -66,7 +65,6 @@ public class NPCFunctionality : MonoBehaviour
         requestCompleted = false;
         seedsRaised = false;
         seedsPurchaseComplete = false;
-        seedToPlayerCount = 0;
         spawnCountFlag = 0;
         failedNum = 0;
         timer = 0;
@@ -116,26 +114,13 @@ public class NPCFunctionality : MonoBehaviour
     {
         if (seedsRaised == true && playerInventory.moneyAmount >= 1)
         {
-            // if you have just enough for the seed batch, take all the seeds!
-            if (seedsAvailable >= playerInventory.moneyAmount) 
+            OnSeedsPurchased?.Invoke(this, new OnSeedsPurchasedArgs
             {
-                seedToPlayerCount = seedsAvailable;
-            }
-
-            else
-            {
-                seedToPlayerCount = playerInventory.moneyAmount;
-            }
-            for (int i = 0; i <= seedToPlayerCount; i++)
-            {
-                OnSeedsPurchased?.Invoke(this, new OnSeedsPurchasedArgs
-                {
-                    seedAmountPurchased = seedToPlayerCount,
-                    moneyToDeduct = playerInventory.moneyAmount
-                });
-            }
-                // for loop to invoke OnMoneyGiuven and OnCropTaken (attached to addSeeds listener in PlayerInventory
-                // and also in UInventory)
+                seedAmountPurchased = seedsAvailable,
+                moneyToDeduct = seedsAvailable
+            });
+            // for loop to invoke OnMoneyGiuven and OnCropTaken (attached to addSeeds listener in PlayerInventory
+            // and also in UInventory)
         }
     }
 
@@ -161,7 +146,7 @@ public class NPCFunctionality : MonoBehaviour
     void RaiseSeeds()
     {
         seedSpawned = Instantiate(seedToSpawn, npcPosOffsetY, Quaternion.identity);
-        seedsAvailable = UnityEngine.Random.Range(3, 12);
+        seedsAvailable = playerInventory.moneyAmount;
         Debug.Log(seedsAvailable + " amount of seeds availble");
         seedsPurchaseComplete = false;
         seedsRaised = true;
@@ -217,7 +202,7 @@ public class NPCFunctionality : MonoBehaviour
                 }
             }
 
-            if (timer > 20 && timer < 21 && requestCompleted == false && requestRaised == true)
+            if (timer > 30 && timer < 31 && requestCompleted == false && requestRaised == true)
             {
 
                 FailedRequest();
@@ -229,10 +214,10 @@ public class NPCFunctionality : MonoBehaviour
 
         if (gameObject.tag == "NPC shopkeeper")
         {
-            if (timer > 3 && timer < 4 && seedsPurchaseComplete == false && seedsRaised == false)
+            if (timer > 30 && seedsPurchaseComplete == false && seedsRaised == false && playerInventory.moneyAmount >= 1)
             {
                 RaiseSeeds();
-
+                
             }
         }
 

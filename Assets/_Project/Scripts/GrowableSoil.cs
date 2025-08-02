@@ -118,7 +118,6 @@ public class GrowableSoil : MonoBehaviour
     private void CropToSeed(object sender, GrowableSoil.OnCropPlantedArgs e)
     {
         cropPlanted = true;
-        Debug.Log("crop planted");
         cropToSpawn.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[0];
         spawnedCrop = Instantiate(cropToSpawn, e.soilPlotPos, Quaternion.identity);
 
@@ -127,14 +126,12 @@ public class GrowableSoil : MonoBehaviour
     private void CropToGrow(object sender, GrowableSoil.OnCropWateredArgs e)
     {
         cropWatered = true;
-        Debug.Log("crop watered");
     }
 
     public void CropToBeHarvested(object sender, EventArgs e)
     {
         {
             Destroy(spawnedCrop);
-            Debug.Log("crop harvested!");
             cropHarvested = true;
             cropPlanted = false;
             cropReadyForHarvest = false;

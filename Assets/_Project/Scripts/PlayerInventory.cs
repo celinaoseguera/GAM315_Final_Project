@@ -22,30 +22,25 @@ public class PlayerInventory : MonoBehaviour
     {
         foreach (GrowableSoil script in growableSoils)
         {
-            script.OnCropHarvested += HarvestListener;
+            script.OnCropPlanted += subtractSeeds;
+            script.OnCropHarvested += addCrops;
         }
 
         foreach (NPCFunctionality script in npcRequesters)
         {
-            script.OnCropGiven += RequestListener;
+            script.OnCropGiven += addMoney;
+            script.OnCropGiven += subtractCrops;
             script.OnSeedsPurchased += addSeeds;
             script.OnSeedsPurchased += subtractMoney;
         }
 
-        OnCropGiven += subtractCrops;
-        OnCropReceived += addCrops;
-        OnCropReceived += addMoney;
         wheatAmount = 0;
-        moneyAmount = 10;
-        seedAmount = 0;
+        moneyAmount = 0;
+        seedAmount = 6;
 
         
     }
 
-    void HarvestListener(object sender, EventArgs e)
-    {
-       OnCropReceived?.Invoke(this, EventArgs.Empty);
-    }
 
     void RequestListener(object sender, EventArgs e)
     {
@@ -54,6 +49,7 @@ public class PlayerInventory : MonoBehaviour
 
    void addCrops(object sender, EventArgs e)
     {
+        
         wheatAmount++;
     }
 
@@ -65,13 +61,13 @@ public class PlayerInventory : MonoBehaviour
     void addSeeds(object sender, OnSeedsPurchasedArgs e)
     {
         seedAmount = e.seedAmountPurchased;
-        Debug.Log(seedAmount + " after purchasing seeds");
     }
 
     void subtractSeeds(object sender, EventArgs e)
     {
+        
         seedAmount--;
-        Debug.Log(seedAmount + " after planting seeds");
+        Debug.Log(seedAmount + " after planting seed");
 
     }
 
@@ -83,7 +79,6 @@ public class PlayerInventory : MonoBehaviour
     void subtractMoney (object sender, OnSeedsPurchasedArgs e)
     {
         moneyAmount -= e.moneyToDeduct;
-        Debug.Log(moneyAmount + " after purchasing seeds");
     }
 
     // Update is called once per frame
