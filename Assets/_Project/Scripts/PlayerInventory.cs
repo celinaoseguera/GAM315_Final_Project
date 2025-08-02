@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static NPCFunctionality;
+using static ShopFunctionality;
 
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] NPCFunctionality[] npcRequesters;
     [SerializeField] GrowableSoil[] growableSoils;
+    [SerializeField] ShopFunctionality shopKeeper;
     public int wheatAmount;
     public int moneyAmount;
     public int seedAmount;
-
-    public event EventHandler OnCropReceived;
     public event EventHandler OnCropGiven;
 
 
@@ -30,10 +30,10 @@ public class PlayerInventory : MonoBehaviour
         {
             script.OnCropGiven += addMoney;
             script.OnCropGiven += subtractCrops;
-            script.OnSeedsPurchased += addSeeds;
-            script.OnSeedsPurchased += subtractMoney;
         }
 
+        shopKeeper.OnSeedsPurchased += addSeeds;
+        shopKeeper.OnSeedsPurchased += subtractMoney;
         wheatAmount = 0;
         moneyAmount = 0;
         seedAmount = 6;
@@ -81,9 +81,4 @@ public class PlayerInventory : MonoBehaviour
         moneyAmount -= e.moneyToDeduct;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

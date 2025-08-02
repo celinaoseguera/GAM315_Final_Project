@@ -57,9 +57,9 @@ TagManager:
   - name: Foreground
     uniqueID: 1683117127
     locked: 0
-  - name: Plants on shrubbery
-    uniqueID: 1570175515
-    locked: 0
   - name: UI
     uniqueID: 3753454703
+    locked: 0
+  - name: GameText
+    uniqueID: 358532417
     locked: 0

@@ -7,6 +7,7 @@ using TMPro;
 using static PlayerInventory;
 using static GrowableSoil;
 using static NPCFunctionality;
+using static ShopFunctionality;
 
 
 public class UIInventory : MonoBehaviour
@@ -18,6 +19,7 @@ public class UIInventory : MonoBehaviour
     [SerializeField] GameObject[] failureSprites;
     [SerializeField] NPCFunctionality[] npcFunctionalities;
     [SerializeField] GrowableSoil[] growableSoils;
+    [SerializeField] ShopFunctionality shopKeeper;
     [SerializeField] PlayerInventory playerInventory;
 
     private SpriteRenderer spriteRenderer;
@@ -35,8 +37,6 @@ public class UIInventory : MonoBehaviour
             script.OnFailure += ActivateFailureSprites;
             script.OnCropGiven += WheatChangeText;
             script.OnCropGiven += MoneyChangeText;
-            script.OnSeedsPurchased += MoneyChangeText;
-            script.OnSeedsPurchased += SeedChangeText;
         }
 
         foreach (GrowableSoil script in growableSoils)
@@ -45,6 +45,8 @@ public class UIInventory : MonoBehaviour
             script.OnCropHarvested += WheatChangeText;
         }
 
+        shopKeeper.OnSeedsPurchased += MoneyChangeText;
+        shopKeeper.OnSeedsPurchased += SeedChangeText;
 
     }
 

@@ -10,14 +10,12 @@ public class NPCFunctionality : MonoBehaviour
 {
     //NPC requesters
     [SerializeField] InputPublisher inputPublisher;
-    private float timer;
     private bool requestRaised;
     private bool requestCompleted;
     private int failedNum;
     private Vector2 npcPos;
     private Vector2 npcPosOffsetY;
     private Vector2 npcPosOffsetXY;
-    private const string REQUESTER_TAG = "NPC requester";
 
     public event EventHandler OnCropGiven;
 
@@ -29,27 +27,11 @@ public class NPCFunctionality : MonoBehaviour
     private GameObject failureSpawned;
     private GameObject completeSpawned;
     private int spawnCountFlag;
+    private float timer;
     private float randomDelay;
 
     public event EventHandler OnFailure;
 
-    //NPC shopkeeper
-    private const string SHOPKEEPER_TAG = "NPC shopkeeper";
-    private int seedsAvailable;
-
-    //NPC shopkeeper states
-    [SerializeField] GameObject seedToSpawn;
-    private GameObject seedSpawned;
-    private bool seedsRaised;
-    private bool seedsPurchaseComplete;
-    
-    public event EventHandler<OnSeedsPurchasedArgs> OnSeedsPurchased;
-
-    public class OnSeedsPurchasedArgs : EventArgs
-    {
-        public int seedAmountPurchased;
-        public int moneyToDeduct;
-    }
 
     //Player
     [SerializeField] PlayerInventory playerInventory;
@@ -63,8 +45,6 @@ public class NPCFunctionality : MonoBehaviour
         npcPosOffsetXY = new Vector2(npcPos.x + .9f, npcPos.y + 1.3f);
         requestRaised = false;
         requestCompleted = false;
-        seedsRaised = false;
-        seedsPurchaseComplete = false;
         spawnCountFlag = 0;
         failedNum = 0;
         timer = 0;
@@ -77,7 +57,6 @@ public class NPCFunctionality : MonoBehaviour
         if (other.gameObject.CompareTag(PLAYER_TAG))
         {
             inputPublisher.OnEPressed += GiveCrop;
-            inputPublisher.OnEPressed += PurchaseSeeds;
         }
 
         return;
@@ -88,7 +67,6 @@ public class NPCFunctionality : MonoBehaviour
         if (other.gameObject.CompareTag(PLAYER_TAG))
         {
             inputPublisher.OnEPressed -= GiveCrop;
-            inputPublisher.OnEPressed -= PurchaseSeeds;
         }
 
         return;
@@ -110,20 +88,6 @@ public class NPCFunctionality : MonoBehaviour
 
     }
 
-    private void PurchaseSeeds(object sender, EventArgs e)
-    {
-        if (seedsRaised == true && playerInventory.moneyAmount >= 1)
-        {
-            OnSeedsPurchased?.Invoke(this, new OnSeedsPurchasedArgs
-            {
-                seedAmountPurchased = seedsAvailable,
-                moneyToDeduct = seedsAvailable
-            });
-            // for loop to invoke OnMoneyGiuven and OnCropTaken (attached to addSeeds listener in PlayerInventory
-            // and also in UInventory)
-        }
-    }
-
     void FailedRequest()
 
     {
@@ -142,15 +106,6 @@ public class NPCFunctionality : MonoBehaviour
         requestRaised = true;
 
     }
-
-    void RaiseSeeds()
-    {
-        seedSpawned = Instantiate(seedToSpawn, npcPosOffsetY, Quaternion.identity);
-        seedsAvailable = playerInventory.moneyAmount;
-        Debug.Log(seedsAvailable + " amount of seeds availble");
-        seedsPurchaseComplete = false;
-        seedsRaised = true;
-}
 
     private IEnumerator DelayRequestFade(float waitTime)
     {
@@ -190,10 +145,6 @@ public class NPCFunctionality : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        if (gameObject.tag == "NPC requester")
-        {
-
-
             if (timer > 10 && timer < 11)
             {
                 if (gameObject.tag == "NPC requester")
@@ -210,16 +161,6 @@ public class NPCFunctionality : MonoBehaviour
                 spawnCountFlag = 0;
             }
 
-        }
-
-        if (gameObject.tag == "NPC shopkeeper")
-        {
-            if (timer > 30 && seedsPurchaseComplete == false && seedsRaised == false && playerInventory.moneyAmount >= 1)
-            {
-                RaiseSeeds();
-                
-            }
-        }
 
 
     }
