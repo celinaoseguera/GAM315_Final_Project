@@ -23,7 +23,6 @@ public class GameOver : MonoBehaviour
         }
 
         gameOverTitle.text = "";
-        gameOverScreen.SetActive(false);
         
     }
 
@@ -38,7 +37,7 @@ public class GameOver : MonoBehaviour
         if (failureCount == 5)
         {
             gameOverTitle.text = "GAME OVER";
-            gameOverScreen.SetActive(false);
+            gameOverScreen.SetActive(true);
             Time.timeScale = 0f;
         }
         

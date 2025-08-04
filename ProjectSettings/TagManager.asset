@@ -63,3 +63,6 @@ TagManager:
   - name: GameText
     uniqueID: 358532417
     locked: 0
+  - name: GameLogo
+    uniqueID: 1807297147
+    locked: 0
