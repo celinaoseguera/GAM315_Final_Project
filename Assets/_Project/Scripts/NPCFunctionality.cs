@@ -153,7 +153,7 @@ public class NPCFunctionality : MonoBehaviour
                 }
             }
 
-            if (timer > 30 && timer < 31 && requestCompleted == false && requestRaised == true)
+            if (timer > 35 && timer < 36 && requestCompleted == false && requestRaised == true)
             {
 
                 FailedRequest();

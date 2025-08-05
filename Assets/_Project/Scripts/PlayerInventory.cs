@@ -67,7 +67,6 @@ public class PlayerInventory : MonoBehaviour
     {
         
         seedAmount--;
-        Debug.Log(seedAmount + " after planting seed");
 
     }
 

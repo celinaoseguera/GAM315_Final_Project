@@ -6,6 +6,7 @@ using UnityEngine;
 using static InputPublisher;
 using static SpriteChanger;
 using TMPro;
+using static PlayerInventory;
 
 public class GrowableSoil : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class GrowableSoil : MonoBehaviour
     // crop content
     [SerializeField] GameObject cropToSpawn;
     [SerializeField] SpriteChanger spriteChanger;
+    [SerializeField] PlayerInventory playerInventory;
     private GameObject spawnedCrop;
     private bool cropPlanted;
     private bool cropWatered;
@@ -82,7 +84,7 @@ public class GrowableSoil : MonoBehaviour
 
     void PlantCrops(object sender, EventArgs e)
     {
-        if (cropPlanted == false) {
+        if (cropPlanted == false && playerInventory.seedAmount >= 1) {
             OnCropPlanted?.Invoke(this, new OnCropPlantedArgs
         {
             soilPlotPos = plotPos

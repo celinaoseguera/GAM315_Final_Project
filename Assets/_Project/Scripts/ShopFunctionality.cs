@@ -36,7 +36,7 @@ public class ShopFunctionality : MonoBehaviour
     void Start()
     {
         npcPos = this.transform.position;
-        npcPosOffsetXY = new Vector2(npcPos.x + .4f, npcPos.y + 1.7f);
+        npcPosOffsetXY = new Vector2(npcPos.x + .4f, npcPos.y + 1.9f);
         seedsRaised = false;
         seedsPurchaseComplete = false;
         timer = 0;
@@ -76,6 +76,7 @@ public class ShopFunctionality : MonoBehaviour
             timer = 0;
             spawnCountFlag = 0;
             Destroy(seedSpawned);
+            seedsRaised = false;
             // for loop to invoke OnMoneyGiuven and OnCropTaken (attached to addSeeds listener in PlayerInventory
             // and also in UInventory)
         }
@@ -85,7 +86,6 @@ public class ShopFunctionality : MonoBehaviour
     {
         seedSpawned = Instantiate(seedToSpawn, npcPosOffsetXY, Quaternion.identity);
         seedsAvailable = playerInventory.moneyAmount;
-        Debug.Log(seedsAvailable + " amount of seeds availble");
         seedsPurchaseComplete = false;
         seedsRaised = true;
     }
