@@ -7,23 +7,22 @@ public class Tutorial : MonoBehaviour
 {
     [SerializeField] GameObject[] stepToShow;
     [SerializeField] GameObject background;
-    private TMP_Text tmpComponent;
+    [SerializeField] TextMeshProUGUI[] numsCountdown;
     private float timer;
-    private int stepCounter;
     private float stepTimer;
+    private float countTimer;
 
     void Awake()
     {
         Time.timeScale = 0f;
         background.SetActive(true);
-        stepCounter = 0;
         stepTimer = 0f;
+        countTimer = 0f;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-       
         //setting false on onset
         foreach (GameObject step in stepToShow)
         {
@@ -33,27 +32,54 @@ public class Tutorial : MonoBehaviour
         //setting all active in order
         foreach (GameObject step in stepToShow)
         {
-            StartCoroutine(DelayNextStep(2f+stepTimer, step,stepCounter));
-            stepCounter++;
-            Debug.Log(stepCounter);
+
+            StartCoroutine(DelayNextStep(3f+stepTimer, step));
             stepTimer += 3f;
         }
         
 
     }
 
-    private IEnumerator DelayNextStep(float waitTime, GameObject step, int stepNum)
+    private IEnumerator DelayNextStep(float waitTime, GameObject step)
     {
         yield return new WaitForSecondsRealtime(waitTime);
         step.SetActive(true);
-        tmpComponent = GetComponentInChildren<TextMeshProUGUI>();
-        tmpComponent.enabled = true;
-        StartCoroutine(DeleteStep(3f, step));
+
+        if (step == stepToShow[5])
+        {
+            Debug.Log("made it to countdown");
+            foreach(TextMeshProUGUI count in numsCountdown)
+            {
+                StartCoroutine(DelayCounter(1f, count));
+                countTimer += 1f;
+            }
+            step.SetActive(false);
+        }
+        else
+        {
+            StartCoroutine(DeleteStep(3f, step));
+        }
     }
 
     private IEnumerator DeleteStep(float waitTime, GameObject step)
     {
         yield return new WaitForSecondsRealtime(waitTime);
         step.SetActive(false);
+    }
+
+    private IEnumerator DelayCounter(float waitTime, TextMeshProUGUI count)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+        count.enabled = true;
+        StartCoroutine(DeleteCounter(1f, count));
+
+
+    }
+
+    private IEnumerator DeleteCounter(float waitTime, TextMeshProUGUI count)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+        count.enabled = false;
+
     }
 }
