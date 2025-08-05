@@ -14,6 +14,7 @@ public class GrowableSoil : MonoBehaviour
     [SerializeField] InputPublisher inputPublisher;
     private const string PLAYER_TAG = "Player";
     private Vector2 plotPos;
+    private Vector2 instPos;
     private SpriteRenderer spriteRenderer;
     private float timer;
 
@@ -24,11 +25,11 @@ public class GrowableSoil : MonoBehaviour
     }
 
     public event EventHandler<OnCropWateredArgs> OnCropWatered;
-    public class OnCropWateredArgs: EventArgs
+    public class OnCropWateredArgs : EventArgs
     {
         public Vector2 soilPlotPos;
     }
-    
+
     public event EventHandler OnCropHarvested;
 
 
@@ -41,6 +42,7 @@ public class GrowableSoil : MonoBehaviour
     private bool cropWatered;
     private bool cropReadyForHarvest;
     public bool cropHarvested;
+
 
     void Start()
     {
