@@ -14,7 +14,8 @@ public class GrowableSoil : MonoBehaviour
     [SerializeField] InputPublisher inputPublisher;
     private const string PLAYER_TAG = "Player";
     private Vector2 plotPos;
-    private Vector2 instPos;
+    private Vector2 waterPos;
+    private Vector2 harvestPos;
     private SpriteRenderer spriteRenderer;
     private float timer;
 
@@ -35,9 +36,13 @@ public class GrowableSoil : MonoBehaviour
 
     // crop content
     [SerializeField] GameObject cropToSpawn;
+    [SerializeField] GameObject waterToSpawn;
+    [SerializeField] GameObject harvestToSpawn;
     [SerializeField] SpriteChanger spriteChanger;
     [SerializeField] PlayerInventory playerInventory;
     private GameObject spawnedCrop;
+    private GameObject spawnedWater;
+    private GameObject spawnedHarvest;
     private bool cropPlanted;
     private bool cropWatered;
     private bool cropReadyForHarvest;
@@ -48,6 +53,8 @@ public class GrowableSoil : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         plotPos = this.transform.position;
+        waterPos = new Vector2 (plotPos.x, plotPos.y +.01f);
+        harvestPos = new Vector2(plotPos.x, plotPos.y + 1f);
         //gets the crop's SpriteChanger script and its vars
         //scriptToAccess = cropToSpawn.GetComponent<SpriteChanger>();
         OnCropPlanted += CropToSeed;
@@ -91,6 +98,7 @@ public class GrowableSoil : MonoBehaviour
         {
             soilPlotPos = plotPos
         });
+            spawnedWater = Instantiate(waterToSpawn, waterPos, Quaternion.identity);
 
     }
         // will show the seed sprite at location of trhe soil plot
@@ -105,7 +113,8 @@ public class GrowableSoil : MonoBehaviour
                 soilPlotPos = plotPos
             });
             // will set off time delta time clock to change sprite from seed to plant and then to mature
-            spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, .3f);
+            spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, .6f);
+            Destroy(spawnedWater);
         }
 
     }
@@ -115,7 +124,9 @@ public class GrowableSoil : MonoBehaviour
         if (cropReadyForHarvest == true && cropPlanted == true)
         {
             OnCropHarvested?.Invoke(this, EventArgs.Empty);
+            
         }
+        
 
     }
 
@@ -136,6 +147,7 @@ public class GrowableSoil : MonoBehaviour
     {
         {
             Destroy(spawnedCrop);
+            Destroy(spawnedHarvest);
             cropHarvested = true;
             cropPlanted = false;
             cropReadyForHarvest = false;
@@ -164,6 +176,7 @@ public class GrowableSoil : MonoBehaviour
                 cropWatered = false;
                 cropReadyForHarvest = true;
                 spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, 0f);
+                spawnedHarvest = Instantiate(harvestToSpawn, harvestPos, Quaternion.identity);
                 timer = 0;
             }
         }

@@ -31,6 +31,7 @@ public class NPCFunctionality : MonoBehaviour
     private float randomDelay;
 
     public event EventHandler OnFailure;
+    public event EventHandler OnCompleted;
 
 
     //Player
@@ -83,6 +84,7 @@ public class NPCFunctionality : MonoBehaviour
             requestRaised = false;
             timer = 0;
             spawnCountFlag = 0;
+            OnCompleted?.Invoke(this, EventArgs.Empty);
             OnCropGiven?.Invoke(this, EventArgs.Empty);
         }
 
@@ -92,6 +94,7 @@ public class NPCFunctionality : MonoBehaviour
 
     {
         failedNum++;
+        Debug.Log(failedNum);
         failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
         StartCoroutine(DelayRequestFailedFade(2f));
         StartCoroutine(DelayRequestFade(2f));
