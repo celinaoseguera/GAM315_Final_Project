@@ -94,12 +94,11 @@ public class NPCFunctionality : MonoBehaviour
 
     {
         failedNum++;
-        Debug.Log(failedNum);
         failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
-        StartCoroutine(DelayRequestFailedFade(2f));
-        StartCoroutine(DelayRequestFade(2f));
         requestRaised = false;
         OnFailure?.Invoke(this, EventArgs.Empty);
+        StartCoroutine(DelayRequestFailedFade(2f));
+        StartCoroutine(DelayRequestFade(2f));
     }
 
     void RaiseRequest()

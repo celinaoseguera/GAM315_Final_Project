@@ -98,7 +98,10 @@ public class GrowableSoil : MonoBehaviour
         {
             soilPlotPos = plotPos
         });
-            spawnedWater = Instantiate(waterToSpawn, waterPos, Quaternion.identity);
+            if (cropWatered == false)
+            {
+                spawnedWater = Instantiate(waterToSpawn, waterPos, Quaternion.identity);
+            }
 
     }
         // will show the seed sprite at location of trhe soil plot
