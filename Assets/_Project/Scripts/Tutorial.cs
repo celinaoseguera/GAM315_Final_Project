@@ -1,15 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static InputPublisher;
 
 public class Tutorial : MonoBehaviour
 {
     [SerializeField] GameObject[] stepToShow;
+    [SerializeField] InputPublisher inputPublisher;
     [SerializeField] GameObject background;
     [SerializeField] TextMeshProUGUI[] numsCountdown;
+    [SerializeField] GameObject spacebarHelpText;
+    private GameObject currentStep;
+    private int currentStepIndex;
     private float timer;
-    private float stepTimer;
     private float delayCountStep;
 
     // Start is called before the first frame update
@@ -17,33 +22,34 @@ public class Tutorial : MonoBehaviour
     {
         Time.timeScale = 0f;
         background.SetActive(true);
-        stepTimer = 0f;
         delayCountStep = 0f;
+        inputPublisher.OnSpacePressed += NextStep;
+        currentStep = stepToShow[0];
+        currentStepIndex = 0;
         //setting false on onset
         foreach (GameObject step in stepToShow)
         {
             step.SetActive(false);
-
         }
-        //setting all active in order
-        foreach (GameObject step in stepToShow)
-        {
+        // set step 0 as active (with 2 second delay)
+        StartCoroutine(DelayNextStep(2f, stepToShow[0]));
+        StartCoroutine(DelayNextStep(2f, spacebarHelpText));
 
-            StartCoroutine(DelayNextStep(3f+stepTimer, step));
-            stepTimer += 3f;
-        }
-        
 
     }
 
-    private IEnumerator DelayNextStep(float waitTime, GameObject step)
+    private void NextStep(object sender, EventArgs e)
     {
-        yield return new WaitForSecondsRealtime(waitTime);
-        step.SetActive(true);
-
-        if (step == stepToShow[5])
+        //delete prev step before proceeded to next step (current step now)
+        currentStep.SetActive(false);
+        currentStepIndex++;
+        currentStep = stepToShow[currentStepIndex];
+        currentStep.SetActive(true);
+        // if that step is last step [5]
+        if (currentStep == stepToShow[5])
         {
-            step.SetActive(true);
+            spacebarHelpText.SetActive(false);
+            currentStep.SetActive(true);
 
             foreach (TextMeshProUGUI count in numsCountdown)
             {
@@ -52,23 +58,20 @@ public class Tutorial : MonoBehaviour
 
             foreach (TextMeshProUGUI count in numsCountdown)
             {
-                
-                StartCoroutine(DelayCounter(1f+delayCountStep, count, step));
+
+                StartCoroutine(DelayCounter(1f + delayCountStep, count, currentStep));
                 delayCountStep += 1f;
 
             }
         }
-        else
-        {
-            StartCoroutine(DeleteStep(3f, step));
-        }
     }
 
-    private IEnumerator DeleteStep(float waitTime, GameObject step)
+    private IEnumerator DelayNextStep(float waitTime, GameObject step)
     {
         yield return new WaitForSecondsRealtime(waitTime);
-        step.SetActive(false);
+        step.SetActive(true);
     }
+
 
     private IEnumerator DelayCounter(float waitTime, TextMeshProUGUI count, GameObject step)
     {
@@ -89,6 +92,7 @@ public class Tutorial : MonoBehaviour
             step.SetActive(false);
             background.SetActive(false);
             Time.timeScale = 1f;
+            this.gameObject.SetActive(false);
         }
 
     }
