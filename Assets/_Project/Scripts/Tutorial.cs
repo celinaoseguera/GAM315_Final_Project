@@ -16,6 +16,7 @@ public class Tutorial : MonoBehaviour
     private int currentStepIndex;
     private float timer;
     private float delayCountStep;
+    private bool nextStepSubscribed;
 
     // Start is called before the first frame update
     void Start()
@@ -23,9 +24,9 @@ public class Tutorial : MonoBehaviour
         Time.timeScale = 0f;
         background.SetActive(true);
         delayCountStep = 0f;
-        inputPublisher.OnSpacePressed += NextStep;
         currentStep = stepToShow[0];
         currentStepIndex = 0;
+        nextStepSubscribed = false;
         //setting false on onset
         foreach (GameObject step in stepToShow)
         {
@@ -43,11 +44,13 @@ public class Tutorial : MonoBehaviour
         //delete prev step before proceeded to next step (current step now)
         currentStep.SetActive(false);
         currentStepIndex++;
+        Debug.Log(currentStepIndex);
         currentStep = stepToShow[currentStepIndex];
         currentStep.SetActive(true);
         // if that step is last step [5]
         if (currentStep == stepToShow[5])
         {
+            inputPublisher.OnSpacePressed -= NextStep;
             spacebarHelpText.SetActive(false);
             currentStep.SetActive(true);
 
@@ -69,6 +72,11 @@ public class Tutorial : MonoBehaviour
     private IEnumerator DelayNextStep(float waitTime, GameObject step)
     {
         yield return new WaitForSecondsRealtime(waitTime);
+        if (nextStepSubscribed == false)
+        {
+            inputPublisher.OnSpacePressed += NextStep;
+            nextStepSubscribed = true;
+        }
         step.SetActive(true);
     }
 
@@ -92,7 +100,7 @@ public class Tutorial : MonoBehaviour
             step.SetActive(false);
             background.SetActive(false);
             Time.timeScale = 1f;
-            this.gameObject.SetActive(false);
+            
         }
 
     }
