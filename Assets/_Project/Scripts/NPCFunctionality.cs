@@ -28,6 +28,8 @@ public class NPCFunctionality : MonoBehaviour
     private GameObject completeSpawned;
     private int spawnCountFlag;
     private float timer;
+    private float requestFailStart;
+    private float requestFailEnd;
     private float randomDelay;
 
     public event EventHandler OnFailure;
@@ -49,6 +51,8 @@ public class NPCFunctionality : MonoBehaviour
         spawnCountFlag = 0;
         failedNum = 0;
         timer = 0;
+        requestFailStart = 30;
+        requestFailEnd = 31;
         randomDelay = 0f;
 
     }
@@ -84,6 +88,8 @@ public class NPCFunctionality : MonoBehaviour
             requestRaised = false;
             timer = 0;
             spawnCountFlag = 0;
+            requestFailStart--;
+            requestFailEnd--;
             OnCompleted?.Invoke(this, EventArgs.Empty);
             OnCropGiven?.Invoke(this, EventArgs.Empty);
         }
@@ -155,7 +161,7 @@ public class NPCFunctionality : MonoBehaviour
                 }
             }
 
-            if (timer > 35 && timer < 36 && requestCompleted == false && requestRaised == true)
+            if (timer > requestFailStart && timer < requestFailEnd && requestCompleted == false && requestRaised == true)
             {
 
                 FailedRequest();

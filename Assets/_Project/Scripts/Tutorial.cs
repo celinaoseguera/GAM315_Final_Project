@@ -44,7 +44,6 @@ public class Tutorial : MonoBehaviour
         //delete prev step before proceeded to next step (current step now)
         currentStep.SetActive(false);
         currentStepIndex++;
-        Debug.Log(currentStepIndex);
         currentStep = stepToShow[currentStepIndex];
         currentStep.SetActive(true);
         // if that step is last step [5]
