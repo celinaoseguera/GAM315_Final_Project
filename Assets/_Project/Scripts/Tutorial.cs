@@ -12,6 +12,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] GameObject background;
     [SerializeField] TextMeshProUGUI[] numsCountdown;
     [SerializeField] GameObject spacebarHelpText;
+    [SerializeField] GameObject directionals;
     private GameObject currentStep;
     private int currentStepIndex;
     private float timer;
@@ -27,6 +28,7 @@ public class Tutorial : MonoBehaviour
         currentStep = stepToShow[0];
         currentStepIndex = 0;
         nextStepSubscribed = false;
+        directionals.SetActive(false);
         //setting false on onset
         foreach (GameObject step in stepToShow)
         {
@@ -98,6 +100,7 @@ public class Tutorial : MonoBehaviour
         {
             step.SetActive(false);
             background.SetActive(false);
+            directionals.SetActive(true);
             Time.timeScale = 1f;
             
         }

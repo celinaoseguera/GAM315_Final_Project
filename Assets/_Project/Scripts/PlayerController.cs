@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+    [SerializeField] GameObject directionals;
     private float movementSpeed = 3.0f;
     private bool isMoving;
     private Rigidbody2D rigidBody;
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator Move(Vector3 targetPos)
     {
         isMoving = true;
+        directionals.SetActive(false);
         // if there was any movement (bigger than zero)... means the user moved and we need to proces that.
         while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon) {
 
