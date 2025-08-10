@@ -16,7 +16,7 @@ TagManager:
   - Water
   - UI
   - SolidObjects
-  - 
+  - Tutorial Items
   - 
   - 
   - 
@@ -65,4 +65,7 @@ TagManager:
     locked: 0
   - name: GameLogo
     uniqueID: 1807297147
+    locked: 0
+  - name: Tutorial
+    uniqueID: 1367793591
     locked: 0

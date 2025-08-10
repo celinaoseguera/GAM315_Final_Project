@@ -19,6 +19,10 @@ public class Tutorial : MonoBehaviour
     private float delayCountStep;
     private bool nextStepSubscribed;
 
+    // Tutorial items to show
+
+    [SerializeField] GameObject[] stepOneBringToFront;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,8 +39,7 @@ public class Tutorial : MonoBehaviour
             step.SetActive(false);
         }
         // set step 0 as active (with 2 second delay)
-        StartCoroutine(DelayNextStep(2f, stepToShow[0]));
-        StartCoroutine(DelayNextStep(2f, spacebarHelpText));
+        StartCoroutine(DelayNextStep(2f, stepToShow[0], spacebarHelpText, stepOneBringToFront ));
 
 
     }
@@ -70,7 +73,7 @@ public class Tutorial : MonoBehaviour
         }
     }
 
-    private IEnumerator DelayNextStep(float waitTime, GameObject step)
+    private IEnumerator DelayNextStep(float waitTime, GameObject step, GameObject spacebar, GameObject[] tutorialObjs)
     {
         yield return new WaitForSecondsRealtime(waitTime);
         if (nextStepSubscribed == false)
@@ -79,6 +82,11 @@ public class Tutorial : MonoBehaviour
             nextStepSubscribed = true;
         }
         step.SetActive(true);
+        spacebar.SetActive(true);
+        foreach (GameObject obj in tutorialObjs)
+        {
+            obj.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
+        }
     }
 
 
