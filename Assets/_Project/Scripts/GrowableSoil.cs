@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static InputPublisher;
 using static SpriteChanger;
+using static Tutorial;
 using TMPro;
 using static PlayerInventory;
 
@@ -40,6 +41,7 @@ public class GrowableSoil : MonoBehaviour
     [SerializeField] GameObject harvestToSpawn;
     [SerializeField] SpriteChanger spriteChanger;
     [SerializeField] PlayerInventory playerInventory;
+    //[SerializeField] Tutorial tutorial;
     private GameObject spawnedCrop;
     private GameObject spawnedWater;
     private GameObject spawnedHarvest;
@@ -63,6 +65,12 @@ public class GrowableSoil : MonoBehaviour
         cropPlanted = false;
         cropReadyForHarvest = false;
         cropHarvested = false;
+        // tutorial subscriptions for just the specified plot in the inspector
+        //if (tutorial != null)
+        //{
+            //tutorial.OnCropTut += PlantCrops;
+            //tutorial.OnCropTut += WaterCrops;
+       // }
     }
 
 

@@ -379,7 +379,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
   m_PrefabInstance: {fileID: 594257212489097898}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1043575081}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 130600967c17c4946b2538494d4a99c0, type: 3}
@@ -6121,7 +6121,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 131.47, y: 49.487007}
+  m_AnchoredPosition: {x: 131.47, y: 71.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &512831914
@@ -6375,6 +6375,10 @@ PrefabInstance:
     - target: {fileID: 5311870023693336304, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: m_UsedByEffector
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
@@ -8177,6 +8181,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
       value: 
       objectReference: {fileID: 6817094445324280851, guid: 34435ed9467fe7a4fafd18fa5caecdb9, type: 3}
@@ -9682,6 +9690,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
       value: 
       objectReference: {fileID: 6817094445324280851, guid: 34435ed9467fe7a4fafd18fa5caecdb9, type: 3}
@@ -10508,6 +10520,10 @@ PrefabInstance:
     - target: {fileID: 3115317352325939487, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
@@ -12320,6 +12336,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1040335698}
   m_CullTransparentMesh: 1
+--- !u!1 &1043575081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3115317352325939487, guid: 8824968b8e941364388ce14114325009, type: 3}
+  m_PrefabInstance: {fileID: 594257212489097898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1054949869
 GameObject:
   m_ObjectHideFlags: 0
@@ -13684,6 +13705,10 @@ PrefabInstance:
     - target: {fileID: 3115317352325939487, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
@@ -17008,6 +17033,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
       value: 
       objectReference: {fileID: 6817094445324280851, guid: 34435ed9467fe7a4fafd18fa5caecdb9, type: 3}
@@ -18437,6 +18466,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
       value: 
       objectReference: {fileID: 6817094445324280851, guid: 34435ed9467fe7a4fafd18fa5caecdb9, type: 3}
@@ -19494,8 +19527,13 @@ MonoBehaviour:
   - {fileID: 775610349}
   spacebarHelpText: {fileID: 69390026}
   directionals: {fileID: 1838031292}
-  stepOneBringToFront:
-  - {fileID: 446783860}
+  farmerTutorial: {fileID: 446783860}
+  soilPlot: {fileID: 1043575081}
+  cropToSpawn: {fileID: 3045665811957515602, guid: 2ba8a514e8dd4814f9d430285a0ad20a, type: 3}
+  spriteChanger: {fileID: -7567096884421763254, guid: 2ba8a514e8dd4814f9d430285a0ad20a, type: 3}
+  stepOneInstruct:
+  - {fileID: 2047123782}
+  - {fileID: 505718333}
 --- !u!1001 &1657220537
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19571,6 +19609,10 @@ PrefabInstance:
     - target: {fileID: 3115317352325939487, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
@@ -21031,6 +21073,10 @@ PrefabInstance:
     - target: {fileID: 3115317352325939487, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
@@ -24280,6 +24326,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
       value: 
       objectReference: {fileID: 6817094445324280851, guid: 34435ed9467fe7a4fafd18fa5caecdb9, type: 3}
@@ -24568,6 +24618,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
       value: 
       objectReference: {fileID: 6817094445324280851, guid: 34435ed9467fe7a4fafd18fa5caecdb9, type: 3}
@@ -24811,7 +24865,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 131.47, y: 79.3}
+  m_AnchoredPosition: {x: 131.47, y: 101.412994}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2051326975
@@ -29978,6 +30032,10 @@ PrefabInstance:
       propertyPath: m_UsedByEffector
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: tutorial
+      value: 
+      objectReference: {fileID: 1650707088}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: instToSpawn
       value: 

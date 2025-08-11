@@ -15,17 +15,30 @@ public class Tutorial : MonoBehaviour
     [SerializeField] GameObject directionals;
     private GameObject currentStep;
     private int currentStepIndex;
-    private float timer;
     private float delayCountStep;
     private bool nextStepSubscribed;
 
-    // Tutorial items to show
+    // Tutorial items to show step1
 
-    [SerializeField] GameObject[] stepOneBringToFront;
+    [SerializeField] GameObject farmerTutorial;
+    [SerializeField] GameObject soilPlot;
+    [SerializeField] GameObject cropToSpawn;
+    [SerializeField] SpriteChanger spriteChanger;
+    [SerializeField] GameObject[] stepOneInstruct;
+    private GameObject spawnedCrop;
+    private Vector2 farmerPos;
+
+
+    //public event EventHandler<OnCropTutArgs> OnCropTut;
+    //public class OnCropTutArgs : EventArgs
+    //{
+        //public Vector2 soilPlotPos;
+    //}
 
     // Start is called before the first frame update
     void Start()
     {
+
         Time.timeScale = 0f;
         background.SetActive(true);
         delayCountStep = 0f;
@@ -33,13 +46,14 @@ public class Tutorial : MonoBehaviour
         currentStepIndex = 0;
         nextStepSubscribed = false;
         directionals.SetActive(false);
+        farmerPos = farmerTutorial.transform.position;
         //setting false on onset
         foreach (GameObject step in stepToShow)
         {
             step.SetActive(false);
         }
         // set step 0 as active (with 2 second delay)
-        StartCoroutine(DelayNextStep(2f, stepToShow[0], spacebarHelpText, stepOneBringToFront ));
+        StartCoroutine(DelayNextStep(2f, stepToShow[0], spacebarHelpText, farmerTutorial));
 
 
     }
@@ -73,7 +87,7 @@ public class Tutorial : MonoBehaviour
         }
     }
 
-    private IEnumerator DelayNextStep(float waitTime, GameObject step, GameObject spacebar, GameObject[] tutorialObjs)
+    private IEnumerator DelayNextStep(float waitTime, GameObject step, GameObject spacebar, GameObject farmerTutorial)
     {
         yield return new WaitForSecondsRealtime(waitTime);
         if (nextStepSubscribed == false)
@@ -81,12 +95,20 @@ public class Tutorial : MonoBehaviour
             inputPublisher.OnSpacePressed += NextStep;
             nextStepSubscribed = true;
         }
+        foreach(GameObject stepInst in stepOneInstruct)
+        {
+            stepInst.SetActive(true);
+        }
         step.SetActive(true);
         spacebar.SetActive(true);
-        foreach (GameObject obj in tutorialObjs)
-        {
-            obj.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
-        }
+        farmerTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
+        farmerTutorial.transform.position = new Vector2(2.26f, -1.85f);
+        cropToSpawn.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
+        cropToSpawn.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[0];
+        soilPlot.GetComponent<SpriteRenderer>().color = new Color(0f, 0.5019608f, 0.5019608f, .9f);
+        spawnedCrop = Instantiate(cropToSpawn, soilPlot.transform.position, Quaternion.identity);
+        StartCoroutine(DelayCrop0(0f, spawnedCrop));
+
     }
 
 
@@ -95,9 +117,6 @@ public class Tutorial : MonoBehaviour
         yield return new WaitForSecondsRealtime(waitTime);
         count.enabled = true;
         StartCoroutine(DeleteCounter(1f, count, step));
-        
-
-
     }
 
     private IEnumerator DeleteCounter(float waitTime, TextMeshProUGUI count, GameObject step)
@@ -110,8 +129,44 @@ public class Tutorial : MonoBehaviour
             background.SetActive(false);
             directionals.SetActive(true);
             Time.timeScale = 1f;
-            
+
         }
 
     }
+
+    private IEnumerator DelayCrop0(float waitTime, GameObject spawnedCrop)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+        spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[0];
+        StartCoroutine(DelayCrop1(2f, spawnedCrop));
+    }
+
+    private IEnumerator DelayCrop1(float waitTime, GameObject spawnedCrop)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+        spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[1];
+        StartCoroutine(DelayCrop2(2f, spawnedCrop));
+    }
+
+    private IEnumerator DelayCrop2(float waitTime, GameObject spawnedCrop)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+        soilPlot.GetComponent<SpriteRenderer>().color = new Color(0f, 0.5019608f, 0.5019608f, 0f);
+        spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[2];
+        StartCoroutine(DelayCrop0(2f, spawnedCrop));
+    }
+
+    void Update()
+    {
+        // take away prev instructional items
+        if (currentStep != stepToShow[0])
+        {
+            foreach (GameObject step in stepOneInstruct)
+            {
+                step.SetActive(false);
+            }
+            Destroy(spawnedCrop);
+        }
+    }
+
 }
