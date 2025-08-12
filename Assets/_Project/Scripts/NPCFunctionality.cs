@@ -44,6 +44,11 @@ public class NPCFunctionality : MonoBehaviour
     [SerializeField] PlayerInventory playerInventory;
     private const string PLAYER_TAG = "Player";
 
+    // audio
+    [SerializeField] private AudioClip moneySoundClip;
+    [SerializeField] private AudioClip failureSoundClip;
+    [SerializeField] private AudioClip requestSoundClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,6 +103,7 @@ public class NPCFunctionality : MonoBehaviour
             spawnCountFlag = 0;
             requestFailStart--;
             requestFailEnd--;
+            SoundFXManager.instance.PlaySoundFXClip(moneySoundClip, transform, 1f);
             OnCompleted?.Invoke(this, EventArgs.Empty);
             OnCropGiven?.Invoke(this, EventArgs.Empty);
         }
@@ -111,6 +117,7 @@ public class NPCFunctionality : MonoBehaviour
         failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
         requestRaised = false;
         OnFailure?.Invoke(this, EventArgs.Empty);
+        SoundFXManager.instance.PlaySoundFXClip(failureSoundClip, transform, 1f);
         StartCoroutine(DelayRequestFailedFade(2f));
         StartCoroutine(DelayRequestFade(2f));
     }
@@ -118,6 +125,7 @@ public class NPCFunctionality : MonoBehaviour
     void RaiseRequest()
     {
         requestSpawned = Instantiate(requestToSpawn, npcPosOffsetY, Quaternion.identity);
+        SoundFXManager.instance.PlaySoundFXClip(requestSoundClip, transform, 1f);
         requestCompleted = false;
         requestRaised = true;
 

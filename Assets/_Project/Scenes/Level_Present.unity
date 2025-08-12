@@ -6401,6 +6401,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -6408,6 +6412,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: cropSprites.Array.size
       value: 3
@@ -8205,6 +8217,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -8212,6 +8228,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9714,6 +9738,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -9721,6 +9749,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10680,6 +10716,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -10687,6 +10727,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13456,6 +13504,8 @@ MonoBehaviour:
   availableSeedsTxt: {fileID: 838417567}
   availableBox: {fileID: 1343119989}
   playerInventory: {fileID: 446783867}
+  moneySoundClip: {fileID: 8300000, guid: 29bad1ed2490f7c4f852fa8f05efacd4, type: 3}
+  raiseSeedsSoundClip: {fileID: 8300000, guid: 93d08b93125ff12469264b6e5869ef34, type: 3}
 --- !u!1 &1119859944
 GameObject:
   m_ObjectHideFlags: 0
@@ -14002,6 +14052,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -14009,6 +14063,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14804,6 +14866,9 @@ MonoBehaviour:
   failureToSpawn: {fileID: 7867612645597014443, guid: eb6a4a302b7fc6c48b42dac0d60f3a9a, type: 3}
   completeToSpawn: {fileID: 8911680666914451090, guid: 3ecf23d026e94be47a0226e8aeed6576, type: 3}
   playerInventory: {fileID: 446783867}
+  moneySoundClip: {fileID: 8300000, guid: 29bad1ed2490f7c4f852fa8f05efacd4, type: 3}
+  failureSoundClip: {fileID: 8300000, guid: ea1ef774e4cdf744f926a52bec6f98aa, type: 3}
+  requestSoundClip: {fileID: 8300000, guid: 9e5f49e483685ce4c84ed03d8d78bba8, type: 3}
 --- !u!212 &1212391869
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15074,6 +15139,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219279508}
   m_CullTransparentMesh: 1
+--- !u!1 &1228068797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1228068799}
+  - component: {fileID: 1228068798}
+  m_Layer: 5
+  m_Name: SoundFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1228068798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228068797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df867e6088b8144c870f0b7438667c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFXObject: {fileID: 5577373015386042347, guid: 6e6d17ade5b107046b0322a1b7f9de38, type: 3}
+--- !u!224 &1228068799
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228068797}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 428.5, y: 241}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1234843744
 GameObject:
   m_ObjectHideFlags: 0
@@ -17365,6 +17479,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -17372,6 +17490,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18662,6 +18788,9 @@ MonoBehaviour:
   failureToSpawn: {fileID: 7867612645597014443, guid: eb6a4a302b7fc6c48b42dac0d60f3a9a, type: 3}
   completeToSpawn: {fileID: 8911680666914451090, guid: 3ecf23d026e94be47a0226e8aeed6576, type: 3}
   playerInventory: {fileID: 446783867}
+  moneySoundClip: {fileID: 8300000, guid: 29bad1ed2490f7c4f852fa8f05efacd4, type: 3}
+  failureSoundClip: {fileID: 8300000, guid: ea1ef774e4cdf744f926a52bec6f98aa, type: 3}
+  requestSoundClip: {fileID: 8300000, guid: 9e5f49e483685ce4c84ed03d8d78bba8, type: 3}
 --- !u!70 &1550812566
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -18798,6 +18927,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -18805,6 +18938,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19955,6 +20096,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -19962,6 +20107,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21072,6 +21225,9 @@ MonoBehaviour:
   failureToSpawn: {fileID: 7867612645597014443, guid: eb6a4a302b7fc6c48b42dac0d60f3a9a, type: 3}
   completeToSpawn: {fileID: 8911680666914451090, guid: 3ecf23d026e94be47a0226e8aeed6576, type: 3}
   playerInventory: {fileID: 446783867}
+  moneySoundClip: {fileID: 8300000, guid: 29bad1ed2490f7c4f852fa8f05efacd4, type: 3}
+  failureSoundClip: {fileID: 8300000, guid: ea1ef774e4cdf744f926a52bec6f98aa, type: 3}
+  requestSoundClip: {fileID: 8300000, guid: 9e5f49e483685ce4c84ed03d8d78bba8, type: 3}
 --- !u!70 &1779909062
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -21419,6 +21575,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -21426,6 +21586,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24536,6 +24704,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -24543,6 +24715,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24828,6 +25008,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -24835,6 +25019,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30243,6 +30435,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 795561038}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: waterSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 718b7bcabeb169b4889162530e0f1489, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 446783867}
@@ -30250,6 +30446,14 @@ PrefabInstance:
       propertyPath: cropToAccessVars
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: harvestSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 531e1a43b52c0c1408e79f88f5502eea, type: 3}
+    - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
+      propertyPath: cropReadySoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ffeaff963400eb46ba43e85c529cb9a, type: 3}
     - target: {fileID: 7369788074401373443, guid: 8824968b8e941364388ce14114325009, type: 3}
       propertyPath: cropSprites.Array.size
       value: 3
@@ -30381,6 +30585,7 @@ SceneRoots:
   - {fileID: 1311315994}
   - {fileID: 795561039}
   - {fileID: 185517130}
+  - {fileID: 1228068799}
   - {fileID: 867002379}
   - {fileID: 122104047}
   - {fileID: 594257212489097898}

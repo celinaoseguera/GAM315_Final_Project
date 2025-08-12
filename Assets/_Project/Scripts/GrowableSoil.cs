@@ -41,7 +41,6 @@ public class GrowableSoil : MonoBehaviour
     [SerializeField] GameObject harvestToSpawn;
     [SerializeField] SpriteChanger spriteChanger;
     [SerializeField] PlayerInventory playerInventory;
-    //[SerializeField] Tutorial tutorial;
     private GameObject spawnedCrop;
     private GameObject spawnedWater;
     private GameObject spawnedHarvest;
@@ -49,6 +48,11 @@ public class GrowableSoil : MonoBehaviour
     private bool cropWatered;
     private bool cropReadyForHarvest;
     public bool cropHarvested;
+
+    // audio
+    [SerializeField] private AudioClip waterSoundClip;
+    [SerializeField] private AudioClip harvestSoundClip;
+    [SerializeField] private AudioClip cropReadySoundClip;
 
 
     void Start()
@@ -125,6 +129,7 @@ public class GrowableSoil : MonoBehaviour
             });
             // will set off time delta time clock to change sprite from seed to plant and then to mature
             spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, .6f);
+            SoundFXManager.instance.PlaySoundFXClip(waterSoundClip, transform, 1f);
             Destroy(spawnedWater);
         }
 
@@ -135,7 +140,8 @@ public class GrowableSoil : MonoBehaviour
         if (cropReadyForHarvest == true && cropPlanted == true)
         {
             OnCropHarvested?.Invoke(this, EventArgs.Empty);
-            
+            SoundFXManager.instance.PlaySoundFXClip(harvestSoundClip, transform, 1f);
+
         }
         
 
@@ -188,6 +194,7 @@ public class GrowableSoil : MonoBehaviour
                 cropReadyForHarvest = true;
                 spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, 0f);
                 spawnedHarvest = Instantiate(harvestToSpawn, harvestPos, Quaternion.identity);
+                SoundFXManager.instance.PlaySoundFXClip(cropReadySoundClip, transform, 1f);
                 timer = 0;
             }
         }

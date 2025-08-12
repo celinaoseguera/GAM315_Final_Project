@@ -37,6 +37,10 @@ public class ShopFunctionality : MonoBehaviour
     [SerializeField] PlayerInventory playerInventory;
     private const string PLAYER_TAG = "Player";
 
+    // audio
+    [SerializeField] private AudioClip moneySoundClip;
+    [SerializeField] private AudioClip raiseSeedsSoundClip;
+
     void Start()
     {
         npcPos = this.transform.position;
@@ -82,6 +86,7 @@ public class ShopFunctionality : MonoBehaviour
             timer = 0;
             spawnCountFlag = 0;
             Destroy(seedSpawned);
+            SoundFXManager.instance.PlaySoundFXClip(moneySoundClip, transform, 1f);
             availableBox.SetActive(false);
             seedsRaised = false;
             // for loop to invoke OnMoneyGiuven and OnCropTaken (attached to addSeeds listener in PlayerInventory
@@ -92,6 +97,7 @@ public class ShopFunctionality : MonoBehaviour
     void RaiseSeeds()
     {
         seedSpawned = Instantiate(seedToSpawn, npcPosOffsetXY, Quaternion.identity);
+        SoundFXManager.instance.PlaySoundFXClip(raiseSeedsSoundClip, transform, 1f);
         seedsAvailable = playerInventory.moneyAmount;
         availableBox.SetActive(true);
         availableSeedsNum.text = playerInventory.moneyAmount.ToString();
