@@ -13,7 +13,9 @@ public class ShopFunctionality : MonoBehaviour
     //NPC shopkeeper states
     [SerializeField] InputPublisher inputPublisher;
     [SerializeField] GameObject seedToSpawn;
-    //[SerializeField] TextMeshProUGUI seedAmountUI;
+    [SerializeField] TMP_Text availableSeedsNum;
+    [SerializeField] TMP_Text availableSeedsTxt;
+    [SerializeField] GameObject availableBox;
     private GameObject seedSpawned;
     private bool seedsRaised;
     private bool seedsPurchaseComplete;
@@ -80,7 +82,7 @@ public class ShopFunctionality : MonoBehaviour
             timer = 0;
             spawnCountFlag = 0;
             Destroy(seedSpawned);
-            //seedAmountUI.enabled = false;
+            availableBox.SetActive(false);
             seedsRaised = false;
             // for loop to invoke OnMoneyGiuven and OnCropTaken (attached to addSeeds listener in PlayerInventory
             // and also in UInventory)
@@ -91,6 +93,9 @@ public class ShopFunctionality : MonoBehaviour
     {
         seedSpawned = Instantiate(seedToSpawn, npcPosOffsetXY, Quaternion.identity);
         seedsAvailable = playerInventory.moneyAmount;
+        availableBox.SetActive(true);
+        availableSeedsNum.text = playerInventory.moneyAmount.ToString();
+        availableSeedsTxt.text = "available";
         //seedAmountUI.enabled = true;
         //seedAmountUI.text = seedsAvailable.ToString(); 
         seedsPurchaseComplete = false;

@@ -31,6 +31,10 @@ public class NPCFunctionality : MonoBehaviour
     private float requestFailStart;
     private float requestFailEnd;
     private float randomDelay;
+    private float failureTransparency;
+    private float failureTransCount;
+    private bool failureStarted;
+ 
 
     public event EventHandler OnFailure;
     public event EventHandler OnCompleted;
@@ -54,6 +58,10 @@ public class NPCFunctionality : MonoBehaviour
         requestFailStart = 30;
         requestFailEnd = 31;
         randomDelay = 0f;
+        failureTransparency = 0f;
+        failureTransCount = 0;
+        failureStarted= false;
+   
 
     }
 
@@ -161,9 +169,23 @@ public class NPCFunctionality : MonoBehaviour
                 }
             }
 
-            if (timer > requestFailStart && timer < requestFailEnd && requestCompleted == false && requestRaised == true)
+            if (timer > requestFailStart - 5 && timer < requestFailEnd)
             {
+                failureTransCount += .0002f;
+                Debug.Log(failureTransCount.ToString());
+                //failureToSpawn.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, failureTransparency);
+                if (failureStarted == false)
+                {
+                    failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
+                    failureStarted = true;
+                }
+                failureSpawned.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, failureTransparency + failureTransCount);
+               }
 
+        if (timer > requestFailStart && timer < requestFailEnd && requestCompleted == false && requestRaised == true)
+            {
+            // delete old spawn
+                Destroy(failureSpawned);
                 FailedRequest();
                 timer = 0;
                 spawnCountFlag = 0;
