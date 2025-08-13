@@ -12,7 +12,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigidBody;
     private Vector2 input;
     public LayerMask solidObjectsLayer;
+    private Animator animator;
+    private Vector2 prevInput;
 
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,22 +34,38 @@ public class PlayerController : MonoBehaviour
         {
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
+            //store previous direction when we stop moving
+            prevInput.x = animator.GetFloat("moveX");
 
             //avoiding diagonal movement and lag
             if (input.x != 0) input.y = 0;
 
             // if user it pressing left or right or up or down (-1,0 ... 1,0 ... 0,1 ... 1,0)
-            if (input != Vector2.zero)
+            if (input.x != 0)
             {
+                animator.SetFloat("moveX", input.x);
                 var targetPos = transform.position;
                 targetPos.x += input.x;
-                targetPos.y += input.y;
+               
                 // walakble area? Only move if that is the case
                 if (IsWalkable(targetPos))
                 {
                     StartCoroutine(Move(targetPos));
                 }
                 
+            }
+            if (input.y!= 0)
+            {
+                animator.SetFloat("moveX", prevInput.x);
+                var targetPos = transform.position;
+                targetPos.y += input.y;
+
+
+                // walakble area? Only move if that is the case
+                if (IsWalkable(targetPos))
+                {
+                    StartCoroutine(Move(targetPos));
+                }
             }
         }
     }
