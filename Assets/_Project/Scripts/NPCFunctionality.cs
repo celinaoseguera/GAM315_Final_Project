@@ -99,6 +99,9 @@ public class NPCFunctionality : MonoBehaviour
             StartCoroutine(DelayRequestCompletedFade(2f));
             requestCompleted = true;
             requestRaised = false;
+            Destroy(failureSpawned);
+            failureStarted = false;
+            failureTransCount = 0f;
             timer = 0;
             spawnCountFlag = 0;
             requestFailStart--;
@@ -116,6 +119,7 @@ public class NPCFunctionality : MonoBehaviour
         failedNum++;
         failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
         requestRaised = false;
+        failureStarted = false;
         OnFailure?.Invoke(this, EventArgs.Empty);
         SoundFXManager.instance.PlaySoundFXClip(failureSoundClip, transform, 1f);
         StartCoroutine(DelayRequestFailedFade(2f));
@@ -168,6 +172,7 @@ public class NPCFunctionality : MonoBehaviour
     {
 
         timer += Time.deltaTime;
+        
 
             if (timer > 10 && timer < 11)
             {
@@ -177,10 +182,9 @@ public class NPCFunctionality : MonoBehaviour
                 }
             }
 
-            if (timer > requestFailStart - 5 && timer < requestFailEnd)
+            if (timer > requestFailEnd - 7 && timer < requestFailEnd)
             {
-                failureTransCount += .0002f;
-                Debug.Log(failureTransCount.ToString());
+            failureTransCount += .00017f;
                 //failureToSpawn.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, failureTransparency);
                 if (failureStarted == false)
                 {
@@ -197,6 +201,7 @@ public class NPCFunctionality : MonoBehaviour
                 FailedRequest();
                 timer = 0;
                 spawnCountFlag = 0;
+                failureTransCount = 0f;
             }
 
 

@@ -228,22 +228,31 @@ public class Tutorial : MonoBehaviour
     private IEnumerator DelayCrop0(float waitTime, GameObject spawnedCrop)
     {
         yield return new WaitForSecondsRealtime(waitTime);
-        spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChangerTutorial.cropSprites[0];
-        StartCoroutine(DelayCrop1(2f, spawnedCrop));
+        if (spawnedCrop != null)
+        {
+            spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChangerTutorial.cropSprites[0];
+            StartCoroutine(DelayCrop1(2f, spawnedCrop));
+        }
     }
 
     private IEnumerator DelayCrop1(float waitTime, GameObject spawnedCrop)
     {
         yield return new WaitForSecondsRealtime(waitTime);
-        spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChangerTutorial.cropSprites[1];
-        StartCoroutine(DelayCrop2(2f, spawnedCrop));
+        if (spawnedCrop != null)
+        {
+            spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChangerTutorial.cropSprites[1];
+            StartCoroutine(DelayCrop2(2f, spawnedCrop));
+        }
     }
 
     private IEnumerator DelayCrop2(float waitTime, GameObject spawnedCrop)
     {
         yield return new WaitForSecondsRealtime(waitTime);
-        spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChangerTutorial.cropSprites[2];
-        StartCoroutine(DelayCrop0(2f, spawnedCrop));
+        if (spawnedCrop != null)
+        {
+            spawnedCrop.GetComponent<SpriteRenderer>().sprite = spriteChangerTutorial.cropSprites[2];
+            StartCoroutine(DelayCrop0(2f, spawnedCrop));
+        }
     }
 
 
