@@ -34,8 +34,7 @@ public class PlayerController : MonoBehaviour
         {
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
-            //store previous direction when we stop moving
-            prevInput.x = animator.GetFloat("moveX");
+           
 
             //avoiding diagonal movement and lag
             if (input.x != 0) input.y = 0;
@@ -43,7 +42,10 @@ public class PlayerController : MonoBehaviour
             // if user it pressing left or right or up or down (-1,0 ... 1,0 ... 0,1 ... 1,0)
             if (input.x != 0)
             {
+
                 animator.SetFloat("moveX", input.x);
+                //store previous direction when we move a different direction
+                prevInput.x = animator.GetFloat("moveX");
                 var targetPos = transform.position;
                 targetPos.x += input.x;
                
@@ -68,6 +70,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        animator.SetBool("isMoving", isMoving);
     }
 
     IEnumerator Move(Vector3 targetPos)
