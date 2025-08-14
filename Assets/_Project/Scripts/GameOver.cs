@@ -14,8 +14,8 @@ public class GameOver : MonoBehaviour
     [SerializeField] TMP_Text gameOverCompleted;
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] Button restartBtn;
-    private int failureCount;
-    private int completedCount;
+    private int failureCount = 0;
+    private int completedCount = 0;
 
 
 
@@ -42,7 +42,6 @@ public class GameOver : MonoBehaviour
         completedCount++;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (failureCount == 5)

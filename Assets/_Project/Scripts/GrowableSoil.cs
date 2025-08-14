@@ -5,9 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static InputPublisher;
 using static SpriteChanger;
-using static Tutorial;
 using TMPro;
-using static PlayerInventory;
 
 public class GrowableSoil : MonoBehaviour
 {
@@ -44,10 +42,10 @@ public class GrowableSoil : MonoBehaviour
     private GameObject spawnedCrop;
     private GameObject spawnedWater;
     private GameObject spawnedHarvest;
-    private bool cropPlanted;
+    private bool cropPlanted = false;
     private bool cropWatered;
-    private bool cropReadyForHarvest;
-    public bool cropHarvested;
+    private bool cropReadyForHarvest = false;
+    public bool cropHarvested = false;
 
     // audio
     [SerializeField] private AudioClip waterSoundClip;
@@ -66,15 +64,6 @@ public class GrowableSoil : MonoBehaviour
         OnCropPlanted += CropToSeed;
         OnCropWatered += CropToGrow;
         OnCropHarvested += CropToBeHarvested;
-        cropPlanted = false;
-        cropReadyForHarvest = false;
-        cropHarvested = false;
-        // tutorial subscriptions for just the specified plot in the inspector
-        //if (tutorial != null)
-        //{
-            //tutorial.OnCropTut += PlantCrops;
-            //tutorial.OnCropTut += WaterCrops;
-       // }
     }
 
 
@@ -116,7 +105,6 @@ public class GrowableSoil : MonoBehaviour
             }
 
     }
-        // will show the seed sprite at location of trhe soil plot
     }
 
     void WaterCrops(object sender, EventArgs e)

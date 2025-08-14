@@ -6,12 +6,6 @@ using UnityEngine;
 
 public class InputPublisher : MonoBehaviour
 {
-    // create events
-        // create class for args if applicable
-    // raise events (in update)
-    // handle events over in whoever is subscribing to the event being raised (separate files)
-
-   
 
     public event EventHandler OnSpacePressed;
     public event EventHandler OnEPressed;

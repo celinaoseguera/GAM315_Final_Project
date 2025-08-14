@@ -19,8 +19,8 @@ public class ShopFunctionality : MonoBehaviour
     private GameObject seedSpawned;
     private bool seedsRaised;
     private bool seedsPurchaseComplete;
-    private int spawnCountFlag;
-    private float timer;
+    private int spawnCountFlag = 0;
+    private float timer = 0;
     private Vector2 npcPos;
     private Vector2 npcPosOffsetY;
     private Vector2 npcPosOffsetXY;
@@ -47,9 +47,6 @@ public class ShopFunctionality : MonoBehaviour
         npcPosOffsetXY = new Vector2(npcPos.x + .4f, npcPos.y + 1.9f);
         seedsRaised = false;
         seedsPurchaseComplete = false;
-        timer = 0;
-        spawnCountFlag  = 0;
-        //seedAmountUI.enabled = false;
         
     }
 
@@ -89,8 +86,6 @@ public class ShopFunctionality : MonoBehaviour
             SoundFXManager.instance.PlaySoundFXClip(moneySoundClip, transform, 1f);
             availableBox.SetActive(false);
             seedsRaised = false;
-            // for loop to invoke OnMoneyGiuven and OnCropTaken (attached to addSeeds listener in PlayerInventory
-            // and also in UInventory)
         }
     }
 
@@ -102,8 +97,6 @@ public class ShopFunctionality : MonoBehaviour
         availableBox.SetActive(true);
         availableSeedsNum.text = playerInventory.moneyAmount.ToString();
         availableSeedsTxt.text = "available";
-        //seedAmountUI.enabled = true;
-        //seedAmountUI.text = seedsAvailable.ToString(); 
         seedsPurchaseComplete = false;
         seedsRaised = true;
     }

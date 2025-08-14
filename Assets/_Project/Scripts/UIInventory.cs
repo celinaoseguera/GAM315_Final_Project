@@ -4,10 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using static PlayerInventory;
-using static GrowableSoil;
-using static NPCFunctionality;
-using static ShopFunctionality;
 
 
 public class UIInventory : MonoBehaviour
@@ -22,18 +18,14 @@ public class UIInventory : MonoBehaviour
     [SerializeField] GrowableSoil[] growableSoils;
     [SerializeField] ShopFunctionality shopKeeper;
     [SerializeField] PlayerInventory playerInventory;
-    private int completeNum;
-
+    private int completeNum = 0;
     private SpriteRenderer spriteRenderer;
-    private int failureCounter;
+    private int failureCounter = 0;
 
 
 
     void Start()
     {
-        failureCounter = 0;
-        completeNum = 0;
-
 
         foreach (NPCFunctionality script in npcFunctionalities)
         {
@@ -76,8 +68,6 @@ public class UIInventory : MonoBehaviour
         completeNum++;
         CompletedToChange.text = completeNum.ToString();
     }
-
-
 
     void ActivateFailureSprites(object sender, EventArgs e)
     {

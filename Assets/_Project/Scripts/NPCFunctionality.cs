@@ -10,9 +10,6 @@ public class NPCFunctionality : MonoBehaviour
 {
     //NPC requesters
     [SerializeField] InputPublisher inputPublisher;
-    private bool requestRaised;
-    private bool requestCompleted;
-    private int failedNum;
     private Vector2 npcPos;
     private Vector2 npcPosOffsetY;
     private Vector2 npcPosOffsetXY;
@@ -23,18 +20,21 @@ public class NPCFunctionality : MonoBehaviour
     [SerializeField] GameObject requestToSpawn;
     [SerializeField] GameObject failureToSpawn;
     [SerializeField] GameObject completeToSpawn;
+    private bool requestRaised = false;
+    private bool requestCompleted = false;
+    private int failedNum = 0;
     private GameObject requestSpawned;
     private GameObject failureSpawned;
     private GameObject completeSpawned;
-    private int spawnCountFlag;
-    private float timer;
-    private float requestFailStart;
-    private float requestFailEnd;
-    private float randomDelay;
-    private float failureTransparency;
-    private float failureTransCount;
-    private bool failureStarted;
- 
+    private int spawnCountFlag = 0;
+    private float timer = 0;
+    private float requestFailStart = 30;
+    private float requestFailEnd = 31;
+    private float randomDelay = 0f;
+    private float failureTransparency = 0f;
+    private float failureTransCount = 0;
+    private bool failureStarted = false;
+
 
     public event EventHandler OnFailure;
     public event EventHandler OnCompleted;
@@ -55,18 +55,6 @@ public class NPCFunctionality : MonoBehaviour
         npcPos = this.transform.position;
         npcPosOffsetY = new Vector2 (npcPos.x, npcPos.y + 1.3f);
         npcPosOffsetXY = new Vector2(npcPos.x + .9f, npcPos.y + 1.3f);
-        requestRaised = false;
-        requestCompleted = false;
-        spawnCountFlag = 0;
-        failedNum = 0;
-        timer = 0;
-        requestFailStart = 30;
-        requestFailEnd = 31;
-        randomDelay = 0f;
-        failureTransparency = 0f;
-        failureTransCount = 0;
-        failureStarted= false;
-   
 
     }
 
@@ -160,14 +148,13 @@ public class NPCFunctionality : MonoBehaviour
         {
                 randomDelay = UnityEngine.Random.Range(3f, 10f);
                 yield return new WaitForSeconds(randomDelay);
-                // to offset the failed request time to accomodate for the delay
+                // to offset the failed request time to accommodate for the delay
                 timer -= randomDelay;
                 RaiseRequest();
 
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -184,8 +171,7 @@ public class NPCFunctionality : MonoBehaviour
 
             if (timer > requestFailEnd - 7 && timer < requestFailEnd)
             {
-            failureTransCount += .00017f;
-                //failureToSpawn.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, failureTransparency);
+                failureTransCount += .00017f;
                 if (failureStarted == false)
                 {
                     failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);

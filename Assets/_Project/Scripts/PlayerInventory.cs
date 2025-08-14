@@ -10,10 +10,9 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] NPCFunctionality[] npcRequesters;
     [SerializeField] GrowableSoil[] growableSoils;
     [SerializeField] ShopFunctionality shopKeeper;
-    public int wheatAmount;
-    public int moneyAmount;
-    public int seedAmount;
-    public event EventHandler OnCropGiven;
+    public int wheatAmount = 0;
+    public int moneyAmount = 0;
+    public int seedAmount = 6;
 
 
 
@@ -34,18 +33,12 @@ public class PlayerInventory : MonoBehaviour
 
         shopKeeper.OnSeedsPurchased += addSeeds;
         shopKeeper.OnSeedsPurchased += subtractMoney;
-        wheatAmount = 0;
-        moneyAmount = 0;
-        seedAmount = 6;
 
         
     }
 
 
-    void RequestListener(object sender, EventArgs e)
-    {
-        OnCropGiven?.Invoke(this, EventArgs.Empty);
-    }
+
 
    void addCrops(object sender, EventArgs e)
     {

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using static InputPublisher;
 
 public class Tutorial : MonoBehaviour
 {
@@ -14,20 +13,20 @@ public class Tutorial : MonoBehaviour
     [SerializeField] GameObject spacebarHelpText;
     [SerializeField] GameObject directionals;
     private GameObject currentStep;
-    private int currentStepIndex;
-    private float delayCountStep;
-    private bool nextStepSubscribed;
+    private int currentStepIndex = 0;
+    private float delayCountStep = 0f;
+    private bool nextStepSubscribed = false;
 
     //Tutorial items to use in ALL steps
     [SerializeField] GameObject farmerTutorial;
-    private Vector2 farmerPos;
+    private Vector2 farmerPosTutorial;
 
     // Tutorial items to show step1
     [SerializeField] GameObject soilPlotTutorial;
     [SerializeField] GameObject cropToSpawnTutorial;
     [SerializeField] SpriteChanger spriteChangerTutorial;
-    [SerializeField] GameObject[] stepOneInstruct;
-    private GameObject spawnedCrop;
+    [SerializeField] GameObject[] stepOneInstructTutorial;
+    private GameObject spawnedCropTutorial;
 
 
     // Tutorial items to show step2/3
@@ -35,51 +34,50 @@ public class Tutorial : MonoBehaviour
     [SerializeField] GameObject requestToSpawnTutorial;
     [SerializeField] GameObject failureToSpawnTutorial;
     [SerializeField] GameObject completeToSpawnTutorial;
-    [SerializeField] GameObject stepTwoInstruct;
-    [SerializeField] TMP_Text MoneyToChange;
-    private GameObject requestSpawned;
-    private GameObject failureSpawned;
-    private GameObject completeSpawned;
-    private Vector2 npcPos;
-    private Vector2 npcPosOffsetY;
-    private Vector2 npcPosOffsetXY;
+    [SerializeField] GameObject stepTwoInstructTutorial;
+    [SerializeField] TMP_Text MoneyToChangeTutorial;
+    private GameObject requestSpawnedTutorial;
+    private GameObject failureSpawnedTutorial;
+    private GameObject completeSpawnedTutorial;
+    private Vector2 npcPosTutorial;
+    private Vector2 npcPosOffsetYTutorial;
+    private Vector2 npcPosOffsetXYTutorial;
 
     // Tutorial items to show step4
     [SerializeField] GameObject shopTutorial;
     [SerializeField] GameObject stepFourInstruct;
     [SerializeField] GameObject seedToSpawnTutorial;
-    [SerializeField] GameObject availableBox;
+    [SerializeField] GameObject availableBoxTutorial;
     [SerializeField] TMP_Text availableSeedsNumTutorial;
     [SerializeField] TMP_Text availableSeedsTxtTutorial;
     private GameObject seedSpawnedTutorial;
-    private Vector2 shopPos;
+    private Vector2 shopPosTutorial;
 
     void Start()
     {
 
         Time.timeScale = 0f;
         background.SetActive(true);
-        delayCountStep = 0f;
         currentStep = stepToShow[0];
-        currentStepIndex = 0;
-        nextStepSubscribed = false;
         directionals.SetActive(false);
-        farmerPos = farmerTutorial.transform.position;
-        npcPos = npcTutorial.transform.position;
-        npcPosOffsetY = new Vector2(npcPos.x, npcPos.y + 1.3f);
-        npcPosOffsetXY = new Vector2(npcPos.x + .9f, npcPos.y + 1.3f);
-        shopPos = shopTutorial.transform.position;
+        farmerPosTutorial = farmerTutorial.transform.position;
+        npcPosTutorial = npcTutorial.transform.position;
+        npcPosOffsetYTutorial = new Vector2(npcPosTutorial.x, npcPosTutorial.y + 1.3f);
+        npcPosOffsetXYTutorial = new Vector2(npcPosTutorial.x + .9f, npcPosTutorial.y + 1.3f);
+        shopPosTutorial = shopTutorial.transform.position;
+
         //setting false on onset
         foreach (GameObject step in stepToShow)
         {
             step.SetActive(false);
         }
-        // step 0 activation
+
+        // step[0] activation
         StartCoroutine(DelayNextStep(2f, stepToShow[0], spacebarHelpText, farmerTutorial));
 
 
     }
-    // steps 1- end functionality code block
+    // step[1]- end functionality code block
     // separated by if/case statements
     private void NextStep(object sender, EventArgs e)
     {
@@ -94,51 +92,52 @@ public class Tutorial : MonoBehaviour
         if (currentStep == stepToShow[1])
         {
             // delete prev items/layers from step[0]
-            foreach (GameObject step in stepOneInstruct)
+            foreach (GameObject step in stepOneInstructTutorial)
             {
                 step.SetActive(false);
             }
-            Destroy(spawnedCrop);
+            Destroy(spawnedCropTutorial);
             cropToSpawnTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Plants");
             soilPlotTutorial.GetComponent<SpriteRenderer>().color = new Color(0f, 0.5019608f, 0.5019608f, 0f);
 
             farmerTutorial.transform.position = new Vector2(1.23f, 2.65f);
             npcTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
-            requestSpawned = Instantiate(requestToSpawnTutorial, npcPosOffsetY, Quaternion.identity);
-            completeSpawned = Instantiate(completeToSpawnTutorial, npcPosOffsetXY, Quaternion.identity);
-            stepTwoInstruct.SetActive(true);
+            requestSpawnedTutorial = Instantiate(requestToSpawnTutorial, npcPosOffsetYTutorial, Quaternion.identity);
+            completeSpawnedTutorial = Instantiate(completeToSpawnTutorial, npcPosOffsetXYTutorial, Quaternion.identity);
+            stepTwoInstructTutorial.SetActive(true);
         }
+
         if (currentStep == stepToShow[2])
         {
             // delete prev items/layers
-            Destroy(completeSpawned);
+            Destroy(completeSpawnedTutorial);
 
-            failureSpawned = Instantiate(failureToSpawnTutorial, npcPosOffsetXY, Quaternion.identity);
+            failureSpawnedTutorial = Instantiate(failureToSpawnTutorial, npcPosOffsetXYTutorial, Quaternion.identity);
         }
 
         if (currentStep == stepToShow[3])
         {
             // delete prev items/layers
-            Destroy(failureSpawned);
+            Destroy(failureSpawnedTutorial);
 
-            completeSpawned = Instantiate(completeToSpawnTutorial, npcPosOffsetXY, Quaternion.identity);
-            MoneyToChange.text = "1";
+            completeSpawnedTutorial = Instantiate(completeToSpawnTutorial, npcPosOffsetXYTutorial, Quaternion.identity);
+            MoneyToChangeTutorial.text = "1";
 
         }
 
         if (currentStep == stepToShow[4])
         {
             // delete prev items/layers
-            Destroy(completeSpawned);
-            Destroy(requestSpawned);
-            MoneyToChange.text = "0";
+            Destroy(completeSpawnedTutorial);
+            Destroy(requestSpawnedTutorial);
+            MoneyToChangeTutorial.text = "0";
             npcTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Foreground");
 
             stepFourInstruct.SetActive(true);
             farmerTutorial.transform.position = new Vector2(-2.01f, 0.57f);
             shopTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
-            seedSpawnedTutorial = Instantiate(seedToSpawnTutorial, new Vector2(shopPos.x + .4f, shopPos.y + 1.9f), Quaternion.identity);
-            availableBox.SetActive(true);
+            seedSpawnedTutorial = Instantiate(seedToSpawnTutorial, new Vector2(shopPosTutorial.x + .4f, shopPosTutorial.y + 1.9f), Quaternion.identity);
+            availableBoxTutorial.SetActive(true);
             availableSeedsNumTutorial.text = "4";
             availableSeedsTxtTutorial.text = "available";
 
@@ -154,7 +153,7 @@ public class Tutorial : MonoBehaviour
             farmerTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Foreground");
             shopTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Foreground");
             Destroy(seedSpawnedTutorial);
-            availableBox.SetActive(false);
+            availableBoxTutorial.SetActive(false);
             availableSeedsNumTutorial.text = "";
             availableSeedsTxtTutorial.text = "";
 
@@ -162,6 +161,7 @@ public class Tutorial : MonoBehaviour
             spacebarHelpText.SetActive(false);
             currentStep.SetActive(true);
 
+            // starting our 3,2,1 countdown 
             foreach (TextMeshProUGUI count in numsCountdown)
             {
                 count.enabled = false;
@@ -176,7 +176,7 @@ public class Tutorial : MonoBehaviour
             }
         }
     }
-
+    // for showing step [0], activated further up with a StartCoroutine
     private IEnumerator DelayNextStep(float waitTime, GameObject step, GameObject spacebar, GameObject farmerTutorial)
     {
         yield return new WaitForSecondsRealtime(waitTime);
@@ -186,10 +186,11 @@ public class Tutorial : MonoBehaviour
             inputPublisher.OnSpacePressed += NextStep;
             nextStepSubscribed = true;
         }
-        foreach(GameObject stepInst in stepOneInstruct)
+        foreach(GameObject stepInst in stepOneInstructTutorial)
         {
             stepInst.SetActive(true);
         }
+
         step.SetActive(true);
         spacebar.SetActive(true);
         farmerTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
@@ -197,12 +198,13 @@ public class Tutorial : MonoBehaviour
         cropToSpawnTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
         cropToSpawnTutorial.GetComponent<SpriteRenderer>().sprite = spriteChangerTutorial.cropSprites[0];
         soilPlotTutorial.GetComponent<SpriteRenderer>().color = new Color(0f, 0.5019608f, 0.5019608f, .9f);
-        spawnedCrop = Instantiate(cropToSpawnTutorial, soilPlotTutorial.transform.position, Quaternion.identity);
-        StartCoroutine(DelayCrop0(0f, spawnedCrop));
+        spawnedCropTutorial = Instantiate(cropToSpawnTutorial, soilPlotTutorial.transform.position, Quaternion.identity);
+        // starting the crop cycle of step[0]
+        StartCoroutine(DelayCrop0(0f, spawnedCropTutorial));
 
     }
 
-
+    // for showing the countdown in step[5]
     private IEnumerator DelayCounter(float waitTime, TextMeshProUGUI count, GameObject step)
     {
         yield return new WaitForSecondsRealtime(waitTime);
@@ -225,6 +227,7 @@ public class Tutorial : MonoBehaviour
 
     }
 
+    // for showing crop cycle in step[0]
     private IEnumerator DelayCrop0(float waitTime, GameObject spawnedCrop)
     {
         yield return new WaitForSecondsRealtime(waitTime);

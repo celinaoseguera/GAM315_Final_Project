@@ -20134,19 +20134,17 @@ MonoBehaviour:
   soilPlotTutorial: {fileID: 1043575081}
   cropToSpawnTutorial: {fileID: 3045665811957515602, guid: 2ba8a514e8dd4814f9d430285a0ad20a, type: 3}
   spriteChangerTutorial: {fileID: -7567096884421763254, guid: 2ba8a514e8dd4814f9d430285a0ad20a, type: 3}
-  stepOneInstruct:
-  - {fileID: 2047123782}
-  - {fileID: 505718333}
+  stepOneInstructTutorial: []
   npcTutorial: {fileID: 1212391865}
   requestToSpawnTutorial: {fileID: 4436033067604057070, guid: c96191a7af65db840bd50e551d90ffd0, type: 3}
   failureToSpawnTutorial: {fileID: 7867612645597014443, guid: eb6a4a302b7fc6c48b42dac0d60f3a9a, type: 3}
   completeToSpawnTutorial: {fileID: 8911680666914451090, guid: 3ecf23d026e94be47a0226e8aeed6576, type: 3}
-  stepTwoInstruct: {fileID: 584064359}
-  MoneyToChange: {fileID: 725400586}
+  stepTwoInstructTutorial: {fileID: 1219279508}
+  MoneyToChangeTutorial: {fileID: 725400586}
   shopTutorial: {fileID: 1110481754}
   stepFourInstruct: {fileID: 1310295222}
   seedToSpawnTutorial: {fileID: 4912188212387768473, guid: 6ed80c5f1fa725843be13c730197f25c, type: 3}
-  availableBox: {fileID: 1343119989}
+  availableBoxTutorial: {fileID: 1343119989}
   availableSeedsNumTutorial: {fileID: 1014969262}
   availableSeedsTxtTutorial: {fileID: 838417567}
 --- !u!1001 &1657220537

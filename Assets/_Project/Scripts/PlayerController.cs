@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
                 targetPos.x += input.x;
                
                 // walakble area? Only move if that is the case
+
                 if (IsWalkable(targetPos))
                 {
                     StartCoroutine(Move(targetPos));
