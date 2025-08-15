@@ -12,7 +12,10 @@ public class InstructionTriggers : MonoBehaviour
     {
         foreach (GameObject instruction in instToActivate)
         {
-            instruction.SetActive(false);
+            if (instruction != null)
+            {
+                instruction.SetActive(false);
+            }
         }
     }
 
