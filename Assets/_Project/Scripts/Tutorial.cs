@@ -34,7 +34,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] GameObject requestToSpawnTutorial;
     [SerializeField] GameObject failureToSpawnTutorial;
     [SerializeField] GameObject completeToSpawnTutorial;
-    [SerializeField] GameObject stepTwoInstructTutorial;
+    [SerializeField] GameObject stepTwoandThreeInstructTutorial;
     [SerializeField] TMP_Text MoneyToChangeTutorial;
     private GameObject requestSpawnedTutorial;
     private GameObject failureSpawnedTutorial;
@@ -45,7 +45,7 @@ public class Tutorial : MonoBehaviour
 
     // Tutorial items to show step4
     [SerializeField] GameObject shopTutorial;
-    [SerializeField] GameObject stepFourInstruct;
+    [SerializeField] GameObject stepFourInstructTutorial;
     [SerializeField] GameObject seedToSpawnTutorial;
     [SerializeField] GameObject availableBoxTutorial;
     [SerializeField] TMP_Text availableSeedsNumTutorial;
@@ -92,9 +92,9 @@ public class Tutorial : MonoBehaviour
         if (currentStep == stepToShow[1])
         {
             // delete prev items/layers from step[0]
-            foreach (GameObject step in stepOneInstructTutorial)
-            {
-                step.SetActive(false);
+            foreach (GameObject stepInstruct in stepOneInstructTutorial) 
+            { 
+            stepInstruct.SetActive(false);
             }
             Destroy(spawnedCropTutorial);
             cropToSpawnTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Plants");
@@ -104,7 +104,7 @@ public class Tutorial : MonoBehaviour
             npcTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
             requestSpawnedTutorial = Instantiate(requestToSpawnTutorial, npcPosOffsetYTutorial, Quaternion.identity);
             completeSpawnedTutorial = Instantiate(completeToSpawnTutorial, npcPosOffsetXYTutorial, Quaternion.identity);
-            stepTwoInstructTutorial.SetActive(true);
+            stepTwoandThreeInstructTutorial.SetActive(true);
         }
 
         if (currentStep == stepToShow[2])
@@ -128,12 +128,13 @@ public class Tutorial : MonoBehaviour
         if (currentStep == stepToShow[4])
         {
             // delete prev items/layers
+            stepTwoandThreeInstructTutorial.SetActive(false);
             Destroy(completeSpawnedTutorial);
             Destroy(requestSpawnedTutorial);
             MoneyToChangeTutorial.text = "0";
             npcTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Foreground");
 
-            stepFourInstruct.SetActive(true);
+            stepFourInstructTutorial.SetActive(true);
             farmerTutorial.transform.position = new Vector2(-2.01f, 0.57f);
             shopTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Tutorial");
             seedSpawnedTutorial = Instantiate(seedToSpawnTutorial, new Vector2(shopPosTutorial.x + .4f, shopPosTutorial.y + 1.9f), Quaternion.identity);
@@ -148,7 +149,7 @@ public class Tutorial : MonoBehaviour
         if (currentStep == stepToShow[5])
         {
             // delete prev items/layers
-            stepFourInstruct.SetActive(false);
+            stepFourInstructTutorial.SetActive(false);
             farmerTutorial.transform.position = new Vector2(-0.046742f, -0.0077903f);
             farmerTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Foreground");
             shopTutorial.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Foreground");
@@ -186,9 +187,11 @@ public class Tutorial : MonoBehaviour
             inputPublisher.OnSpacePressed += NextStep;
             nextStepSubscribed = true;
         }
-        foreach(GameObject stepInst in stepOneInstructTutorial)
+
+        foreach (GameObject stepInstruct in stepOneInstructTutorial)
         {
-            stepInst.SetActive(true);
+            stepInstruct.layer = LayerMask.NameToLayer("Tutorial Items");
+            stepInstruct.SetActive(true);
         }
 
         step.SetActive(true);

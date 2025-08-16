@@ -9,6 +9,10 @@ using TMPro;
 
 public class GrowableSoil : MonoBehaviour
 {
+    public event EventHandler OnCropPlanted;
+    public event EventHandler OnCropWatered;
+    public event EventHandler OnCropHarvested;
+
     // ground content
     [SerializeField] InputPublisher inputPublisher;
     private const string PLAYER_TAG = "Player";
@@ -17,20 +21,6 @@ public class GrowableSoil : MonoBehaviour
     private Vector2 harvestPos;
     private SpriteRenderer spriteRenderer;
     private float timer;
-
-    public event EventHandler<OnCropPlantedArgs> OnCropPlanted;
-    public class OnCropPlantedArgs : EventArgs
-    {
-        public Vector2 soilPlotPos;
-    }
-
-    public event EventHandler<OnCropWateredArgs> OnCropWatered;
-    public class OnCropWateredArgs : EventArgs
-    {
-        public Vector2 soilPlotPos;
-    }
-
-    public event EventHandler OnCropHarvested;
 
 
     // crop content
@@ -59,11 +49,6 @@ public class GrowableSoil : MonoBehaviour
         plotPos = this.transform.position;
         waterPos = new Vector2 (plotPos.x, plotPos.y +.01f);
         harvestPos = new Vector2(plotPos.x, plotPos.y + 1f);
-        //gets the crop's SpriteChanger script and its vars
-        //scriptToAccess = cropToSpawn.GetComponent<SpriteChanger>();
-        OnCropPlanted += CropToSeed;
-        OnCropWatered += CropToGrow;
-        OnCropHarvested += CropToBeHarvested;
     }
 
 
@@ -72,9 +57,9 @@ public class GrowableSoil : MonoBehaviour
     {
         if (other.gameObject.CompareTag(PLAYER_TAG))
         {
-            inputPublisher.OnEPressed += PlantCrops;
-            inputPublisher.OnSpacePressed += WaterCrops;
-            inputPublisher.OnEPressed += HarvestCrops;
+            inputPublisher.OnEPressed += PlantCrop;
+            inputPublisher.OnSpacePressed += WaterCrop;
+            inputPublisher.OnEPressed += HarvestCrop;
         }
 
         return;
@@ -84,82 +69,55 @@ public class GrowableSoil : MonoBehaviour
     {
         if (other.gameObject.CompareTag(PLAYER_TAG))
         {
-            inputPublisher.OnEPressed -= PlantCrops;
-            inputPublisher.OnSpacePressed -= WaterCrops;
-            inputPublisher.OnEPressed -= HarvestCrops;
+            inputPublisher.OnEPressed -= PlantCrop;
+            inputPublisher.OnSpacePressed -= WaterCrop;
+            inputPublisher.OnEPressed -= HarvestCrop;
         }
 
         return;
     }
 
-    void PlantCrops(object sender, EventArgs e)
+    private void PlantCrop(object sender, EventArgs e)
     {
-        if (cropPlanted == false && playerInventory.seedAmount >= 1) {
-            OnCropPlanted?.Invoke(this, new OnCropPlantedArgs
+        if (cropPlanted == false && playerInventory.seedAmount >= 1)
         {
-            soilPlotPos = plotPos
-        });
+            OnCropPlanted?.Invoke(this, EventArgs.Empty);
+            cropPlanted = true;
+            cropToSpawn.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[0];
+            spawnedCrop = Instantiate(cropToSpawn, plotPos, Quaternion.identity);
+
             if (cropWatered == false)
             {
                 spawnedWater = Instantiate(waterToSpawn, waterPos, Quaternion.identity);
             }
+        }
 
     }
-    }
 
-    void WaterCrops(object sender, EventArgs e)
+    private void WaterCrop(object sender, EventArgs e)
     {
         if (cropWatered == false)
         {
-            OnCropWatered?.Invoke(this, new OnCropWateredArgs
-            {
-                soilPlotPos = plotPos
-            });
-            // will set off time delta time clock to change sprite from seed to plant and then to mature
+            OnCropWatered?.Invoke(this, EventArgs.Empty);
             spriteRenderer.color = new Color(0f, 0.5019608f, 0.5019608f, .6f);
             SoundFXManager.instance.PlaySoundFXClip(waterSoundClip, transform, 1f);
             Destroy(spawnedWater);
         }
-
+        cropWatered = true;
     }
 
-    void HarvestCrops(object sender, EventArgs e)
-    {
+    public void HarvestCrop(object sender, EventArgs e)
+    { 
         if (cropReadyForHarvest == true && cropPlanted == true)
         {
             OnCropHarvested?.Invoke(this, EventArgs.Empty);
             SoundFXManager.instance.PlaySoundFXClip(harvestSoundClip, transform, 1f);
-
-        }
-        
-
-    }
-
-    private void CropToSeed(object sender, GrowableSoil.OnCropPlantedArgs e)
-    {
-        cropPlanted = true;
-        cropToSpawn.GetComponent<SpriteRenderer>().sprite = spriteChanger.cropSprites[0];
-        spawnedCrop = Instantiate(cropToSpawn, e.soilPlotPos, Quaternion.identity);
-
-    }
-
-    private void CropToGrow(object sender, GrowableSoil.OnCropWateredArgs e)
-    {
-        cropWatered = true;
-    }
-
-    public void CropToBeHarvested(object sender, EventArgs e)
-    {
-        {
             Destroy(spawnedCrop);
             Destroy(spawnedHarvest);
             cropHarvested = true;
             cropPlanted = false;
             cropReadyForHarvest = false;
-
-
-            
-        }
+        }         
 
     }
 
