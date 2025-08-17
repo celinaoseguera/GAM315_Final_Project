@@ -94,6 +94,7 @@ public class NPCFunctionality : MonoBehaviour
             spawnCountFlag = 0;
             requestFailStart--;
             requestFailEnd--;
+            Debug.Log(requestFailEnd + " for " + gameObject.name);
             SoundFXManager.instance.PlaySoundFXClip(moneySoundClip, transform, 1f);
             OnCompleted?.Invoke(this, EventArgs.Empty);
             OnCropGiven?.Invoke(this, EventArgs.Empty);
@@ -146,11 +147,13 @@ public class NPCFunctionality : MonoBehaviour
         spawnCountFlag++;
         if (spawnCountFlag < 2)
         {
-                randomDelay = UnityEngine.Random.Range(3f, 10f);
-                yield return new WaitForSeconds(randomDelay);
-                // to offset the failed request time to accommodate for the delay
-                timer -= randomDelay;
-                RaiseRequest();
+            // to offset the failed request time to accommodate for the delay
+            randomDelay = UnityEngine.Random.Range(3f, 10f);
+            timer -= randomDelay;
+                
+            yield return new WaitForSeconds(randomDelay);
+
+            RaiseRequest();
 
         }
     }
@@ -163,10 +166,7 @@ public class NPCFunctionality : MonoBehaviour
 
             if (timer > 10 && timer < 11)
             {
-                if (gameObject.tag == "NPC requester")
-                {
-                    StartCoroutine(DelayForRandTime());
-                }
+              StartCoroutine(DelayForRandTime());
             }
 
             if (timer > requestFailEnd - 7 && timer < requestFailEnd)
