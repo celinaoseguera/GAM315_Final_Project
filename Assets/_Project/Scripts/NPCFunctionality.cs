@@ -156,16 +156,13 @@ public class NPCFunctionality : MonoBehaviour
     private IEnumerator DelayForRandTimeNearFail()
     {
         nearCountFlag++;
-        if (nearCountFlag < 2)
+        if (nearCountFlag < 2 && requestCompleted == false && requestRaised == true)
         {
             yield return new WaitForSeconds(randomDelay);
-            if (requestCompleted == false && requestRaised == true)
-            {
-                Debug.Log("made it into near fail " + gameObject.name);
-                failureTransCount = .3f;
-                nearFailureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
-                nearFailureSpawned.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, failureTransCount);
-            }
+            Debug.Log("made it into near fail " + gameObject.name);
+            failureTransCount = .3f;
+            nearFailureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
+            nearFailureSpawned.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, failureTransCount);
 
         }
     }
@@ -173,20 +170,16 @@ public class NPCFunctionality : MonoBehaviour
     private IEnumerator DelayForRandTimeFail()
     {
         failCountFlag++;
-        if (failCountFlag < 2)
+        if (failCountFlag < 2 && requestCompleted == false && requestRaised == true)
         {
             yield return new WaitForSeconds(randomDelay);
-            if (requestCompleted == false && requestRaised == true)
-            {
-                // delete old spawn
-                Destroy(nearFailureSpawned);
-                FailedRequest();
-                timer = 0;
-                raiseCountFlag = 0;
-                nearCountFlag = 0;
-                failCountFlag = 0;
-            }
-
+            // delete old spawn
+            Destroy(nearFailureSpawned);
+            FailedRequest();
+            timer = 0;
+            raiseCountFlag = 0;
+            nearCountFlag = 0;
+            failCountFlag = 0;
         }
     }
 
