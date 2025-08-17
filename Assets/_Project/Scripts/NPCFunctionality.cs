@@ -25,15 +25,16 @@ public class NPCFunctionality : MonoBehaviour
     private int failedNum = 0;
     private GameObject requestSpawned;
     private GameObject failureSpawned;
+    private GameObject nearFailureSpawned;
     private GameObject completeSpawned;
-    private int spawnCountFlag = 0;
+    private int raiseCountFlag = 0;
+    private int nearCountFlag = 0;
+    private int failCountFlag = 0;
     private float timer = 0;
     private float requestFailStart = 30;
     private float requestFailEnd = 31;
     private float randomDelay = 0f;
-    private float failureTransparency = 0f;
     private float failureTransCount = 0;
-    private bool failureStarted = false;
 
 
     public event EventHandler OnFailure;
@@ -87,11 +88,10 @@ public class NPCFunctionality : MonoBehaviour
             StartCoroutine(DelayRequestCompletedFade(2f));
             requestCompleted = true;
             requestRaised = false;
-            Destroy(failureSpawned);
-            failureStarted = false;
+            Destroy(nearFailureSpawned);
             failureTransCount = 0f;
             timer = 0;
-            spawnCountFlag = 0;
+            raiseCountFlag = 0;
             requestFailStart--;
             requestFailEnd--;
             SoundFXManager.instance.PlaySoundFXClip(moneySoundClip, transform, 1f);
@@ -107,7 +107,6 @@ public class NPCFunctionality : MonoBehaviour
         failedNum++;
         failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
         requestRaised = false;
-        failureStarted = false;
         OnFailure?.Invoke(this, EventArgs.Empty);
         SoundFXManager.instance.PlaySoundFXClip(failureSoundClip, transform, 1f);
         StartCoroutine(DelayRequestFailedFade(2f));
@@ -141,16 +140,52 @@ public class NPCFunctionality : MonoBehaviour
         Destroy(completeSpawned);
     }
 
-    private IEnumerator DelayForRandTime()
+    private IEnumerator DelayForRandTimeRaise()
     {
-        spawnCountFlag++;
-        if (spawnCountFlag < 2)
+        raiseCountFlag++;
+        if (raiseCountFlag < 2)
         {
-                randomDelay = UnityEngine.Random.Range(3f, 10f);
-                yield return new WaitForSeconds(randomDelay);
-                // to offset the failed request time to accommodate for the delay
-                timer -= randomDelay;
-                RaiseRequest();
+                
+            randomDelay = UnityEngine.Random.Range(3f, 10f);
+            yield return new WaitForSeconds(randomDelay);
+            RaiseRequest();
+
+        }
+    }
+
+    private IEnumerator DelayForRandTimeNearFail()
+    {
+        nearCountFlag++;
+        if (nearCountFlag < 2)
+        {
+            yield return new WaitForSeconds(randomDelay);
+            if (requestCompleted == false && requestRaised == true)
+            {
+                Debug.Log("made it into near fail " + gameObject.name);
+                failureTransCount = .3f;
+                nearFailureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
+                nearFailureSpawned.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, failureTransCount);
+            }
+
+        }
+    }
+
+    private IEnumerator DelayForRandTimeFail()
+    {
+        failCountFlag++;
+        if (failCountFlag < 2)
+        {
+            yield return new WaitForSeconds(randomDelay);
+            if (requestCompleted == false && requestRaised == true)
+            {
+                // delete old spawn
+                Destroy(nearFailureSpawned);
+                FailedRequest();
+                timer = 0;
+                raiseCountFlag = 0;
+                nearCountFlag = 0;
+                failCountFlag = 0;
+            }
 
         }
     }
@@ -163,31 +198,17 @@ public class NPCFunctionality : MonoBehaviour
 
             if (timer > 10 && timer < 11)
             {
-                if (gameObject.tag == "NPC requester")
-                {
-                    StartCoroutine(DelayForRandTime());
-                }
+              StartCoroutine(DelayForRandTimeRaise());
             }
 
             if (timer > requestFailEnd - 7 && timer < requestFailEnd)
             {
-                failureTransCount += .00017f;
-                if (failureStarted == false)
-                {
-                    failureSpawned = Instantiate(failureToSpawn, npcPosOffsetXY, Quaternion.identity);
-                    failureStarted = true;
-                }
-                failureSpawned.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, failureTransparency + failureTransCount);
-               }
+              StartCoroutine(DelayForRandTimeNearFail());
+            }
 
-        if (timer > requestFailStart && timer < requestFailEnd && requestCompleted == false && requestRaised == true)
+            if (timer > requestFailStart && timer < requestFailEnd)
             {
-            // delete old spawn
-                Destroy(failureSpawned);
-                FailedRequest();
-                timer = 0;
-                spawnCountFlag = 0;
-                failureTransCount = 0f;
+            StartCoroutine(DelayForRandTimeFail());
             }
 
 
